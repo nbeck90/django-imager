@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ImagerProfile.models import ImagerProfile
+from imagerprofile.models import ImagerProfile
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
