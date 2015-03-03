@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ImagerProfile',
+    'imagerprofile',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -62,7 +62,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'django_imager',
-        'USER': 'nbeck',
+        'USER': USER_NAME,
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -86,3 +86,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

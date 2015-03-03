@@ -2,19 +2,20 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('imagerprofile', '0001_initial'),
+        ('imagerprofile', '0002_auto_20150303_0721'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='imagerprofile',
-            name='profile_picture',
-            field=models.ImageField(null=True, upload_to=b''),
+            name='user',
+            field=models.OneToOneField(related_name='profile', to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
     ]
