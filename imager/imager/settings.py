@@ -61,7 +61,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'django_imager',
-        'USER': 'nbeck',
+        'USER': 'jwarren',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -72,7 +72,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
