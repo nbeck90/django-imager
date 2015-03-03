@@ -21,20 +21,17 @@ class ImagerProfile(models.Model):
 
     email_privacy = models.BooleanField(default=False)
 
-# def is_active(self):
-#     return self.user.is_active
+    relationship = models.ManyToManyField(User,
+                                          symetrical=False,
+                                          related_name='+',
+                                          through='imager_users.Relationship'
+                                          )
 
+    # To find following
+    # return Relationship.objects.filter(left=me, status__in=(1, 3))
 
-# @classmethod
-# def active_users(self):
-#     qs = self.get_queryset()
-#     return qs.filter(user_is_active=True)
-
-# create profile
-# delete user
-
-# post_save.connect(create_profile, sender=User)
-# pre_delete.conect(delete_user, sender=ImagerProfile)
+    # To find followers
+    # return Relationship.objects.filter(right=me, status__in=(1, 3))
 
     def __str__(self):
         return "User: {}".format(self.user.username)
@@ -42,7 +39,20 @@ class ImagerProfile(models.Model):
     def is_active(self):
         return self.user.is_active()
 
+    def follow(self, other):
+        pass
+
+    def unfollow(self, other):
+        pass
+
     @classmethod
     def active(self):
         qs = self.get_queryset()
         return qs.filter(user__is_active=True)
+
+# create profile
+# delete user
+
+# post_save.connect(create_profile, sender=User)
+# pre_delete.conect(delete_user, sender=ImagerProfile)
+
