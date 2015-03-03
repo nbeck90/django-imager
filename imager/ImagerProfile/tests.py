@@ -4,7 +4,7 @@ import factory
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = 'ImagerProfile.ImagerProfile'
+        model = 'imagerprofile.ImagerProfile'
         django_get_or_create = ('username',)
 
     username = 'John'
