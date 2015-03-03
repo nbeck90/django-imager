@@ -1,4 +1,5 @@
 from django.db import models
+# from django.conf import settings
 
 # Create your models here.
 
@@ -6,6 +7,7 @@ from django.db import models
 class ImagerProfile(models.Model):
 
     profile_picture = models.ImageField()
+    # user = models.OneToOneField(settings.AUTH_USER_MODEL)
     phone_number = models.CharField(max_length=15)  # X(XXX) XXX-XXXX
     birthday = models.DateField()
     picture_privacy = models.BooleanField()
