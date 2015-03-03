@@ -8,7 +8,7 @@ from django.utils.encoding import python_2_unicode_compatible
 class ImagerProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
 
-    profile_picture = models.ImageField(null=True)
+    profile_picture = models.ImageField(null=True, upload_to='images')
     picture_privacy = models.BooleanField(default=False)
 
     phone_number = models.CharField(max_length=15)  # X(XXX) XXX-XXXX
