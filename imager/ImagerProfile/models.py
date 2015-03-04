@@ -6,7 +6,8 @@ from django.utils.encoding import python_2_unicode_compatible
 
 class ActiveImagerManager(models.Manager):
     def get_queryset(self):
-        return super(ActiveImagerManager, self).get_queryset().filter(user__is_active=True)
+        return super(ActiveImagerManager,
+                     self).get_queryset().filter(user__is_active=True)
 
 
 @python_2_unicode_compatible
@@ -17,7 +18,7 @@ class ImagerProfile(models.Model):
     profile_picture = models.ImageField(null=True, blank=True,
                                         upload_to='images')
 
-    phone_number = models.CharField(max_length=15)  # X(XXX) XXX-XXXX
+    phone_number = models.CharField(max_length=20, blank=True)
 
     birthday = models.DateField(null=True, blank=True)
 
@@ -30,40 +31,40 @@ class ImagerProfile(models.Model):
     objects = models.Manager()
     active = ActiveImagerManager()
 
+    following = models.ManyToManyField('self',
+                                       symmetrical=False,
+                                       null=True,
+                                       related_name='+')
+    blocking = models.ManyToManyField('self',
+                                      symmetrical=False,
+                                      null=True,
+                                      related_name='+')
+
+    def follow(self, imagerprofile):
+        if self in imagerprofile.blocking.all():
+            return 'User has blocked you'
+        self.following.add(imagerprofile)
+
+    def unfollow(self, imagerprofile):
+        self.following.remove(imagerprofile)
+
+    def block(self, imagerprofile):
+        self.blocking.add(imagerprofile)
+
+    def unblock(self, imagerprofile):
+        self.blocking.remove(imagerprofile)
+
+    def is_following(self):
+        return self.following.all()
+
+    def followers(self):
+        return ImagerProfile.objects.filter(following=self)
+
+    def blocked(self):
+        return self.blocking.all()
+
     def __str__(self):
         return "User: {}".format(self.user.username)
 
     def is_active(self):
         return self.user.is_active()
-
-    following = models.ManyToManyField('self', symmetrical=False, required=False)
-
-    def follow(self, ImagerProfile):
-        self.following.add(ImagerProfile)
-
-    def unfollow(self, other_profile):
-        self.following.remove(other_profile.ImagerProfile)
-
-    def following_user(self):
-        return self.following.all()
-
-    def followers(self):
-        return ImagerProfile.objects.filter(following__id__=self.id)
-
-
-# class Relationship(models.Model):
-
-#     default = 0
-#     follow = 1
-#     friend = 2
-#     block = 4
-
-#     relationship_to = models.ForeignKey(ImagerProfile, related_name='+')
-#     relationship_from = models.ForeignKey(ImagerProfile, related_name='+')
-#     status = models.IntegerField()
-
-#     def following(self):
-#         return Relationship.objects.filter(left=self.user, status__in=(1, 3))
-
-#     def followers(self):
-#         return Relationship.objects.filter(right=self.user, status__in=(1, 3))
