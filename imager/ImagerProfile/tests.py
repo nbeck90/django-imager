@@ -40,5 +40,4 @@ class UserTestCase(TestCase):
         assert tom.profile.phone_privacy is False
 
     def test_profile_active(self):
-        tom = User.objects.get(username='tom_thompson')
-        self.assertEqual(ImagerProfile.active(), tom)
+        assert len(ImagerProfile.active.all()) == 1
