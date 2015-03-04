@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 
 
+class ActiveImagerManager(models.Manager):
+    def get_queryset(self):
+        return super(ActiveImagerManager, self).get_queryset().filter(user__is_active=True)
+
+
 @python_2_unicode_compatible
 class ImagerProfile(models.Model):
 
@@ -44,10 +49,8 @@ class ImagerProfile(models.Model):
     def unfollow(self, other):
         pass
 
-    @classmethod
-    def active(cls):
-        qs = cls.get_queryset()
-        return qs.filter(user__is_active=True)
+    objects = models.Manager()
+    active = ActiveImagerManager()
 
 
 # @python_2_unicode_compatible
