@@ -1,1 +1,5 @@
 Django==1.7.5
+Factory==1.2
+Pillow==2.7.0
+psycopg2==2.6
+wsgiref==0.1.2
