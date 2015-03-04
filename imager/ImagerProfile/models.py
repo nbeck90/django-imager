@@ -68,3 +68,29 @@ class ImagerProfile(models.Model):
 
     def is_active(self):
         return self.user.is_active()
+
+
+@python_2_unicode_compatible
+class ImagerAlbum(models.Model):
+    user = models.OneToOneField(User, related_name='user')
+    title = models.CharField(Default='MyAlbum')
+    description = models.CharField(blank=True)
+    date_created = models.DateField(null=True, blank=True)
+    date_published = models.DateField(null=True, blank=True)
+    date_modified = models.DateField(null=True, blank=True)
+    cover = models.ImageField(null=True,
+                              blank=True,
+                              upload_to='images')
+
+
+@python_2_unicode_compatible
+class ImagerPhoto(models.Model):
+    title = models.CharField(Default='MyAlbum')
+    description = models.CharField(blank=True)
+    date_uploaded = models.DateField(null=True, blank=True)
+    date_published = models.DateField(null=True, blank=True)
+    date_modified = models.DateField(null=True, blank=True)
+    cover = models.ImageField(null=True,
+                              blank=True,
+                              upload_to='images')
+    published = models.ChoiceField('Public', 'Private', 'Shared')
