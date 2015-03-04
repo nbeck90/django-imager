@@ -45,8 +45,8 @@ class ImagerProfile(models.Model):
         pass
 
     @classmethod
-    def active(self):
-        qs = self.get_queryset()
+    def active(cls):
+        qs = cls.get_queryset()
         return qs.filter(user__is_active=True)
 
 
