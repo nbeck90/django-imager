@@ -63,5 +63,17 @@ class UserTestCase(TestCase):
         joe.profile.follow(fred.profile)
         assert fred.profile in joe.profile.following_user()
 
-    def test_user_follow_delete(self):
-        pass
+    def test_user_follow_add_remove(self):
+        joe = UserFactory()
+        fred = UserFactory()
+        joe.profile.follow(fred.profile)
+        assert fred.profile in joe.profile.following_user()
+        joe.profile.unfollow(fred.profile)
+        assert fred.profile not in joe.profile.following_user()
+
+    def test_block(self):
+        joe = ProfileFactory()
+        fred = ProfileFactory()
+        fred.block(joe)
+        assert joe.follow(fred) == u'User has blocked you'
+        assert joe in fred.blocking()
