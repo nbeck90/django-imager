@@ -12,6 +12,14 @@ class UserFactory(factory.django.DjangoModelFactory):
     username = factory.Sequence(lambda n: "User%03d" % n)
 
 
+class ProfileFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = ImagerProfile
+        django_get_or_create = ('user',)
+
+    user = factory.SubFactory(UserFactory)
+
+
 class UserTestCase(TestCase):
     def setUp(self):
         """create two generic users with different settings"""
@@ -48,3 +56,24 @@ class UserTestCase(TestCase):
     def test_profile_active(self):
         """length of current active user list"""
         assert len(ImagerProfile.active.all()) == 1
+
+    def test_user_follow_add(self):
+        joe = UserFactory()
+        fred = UserFactory()
+        joe.profile.follow(fred.profile)
+        assert fred.profile in joe.profile.following_user()
+
+    def test_user_follow_add_remove(self):
+        joe = UserFactory()
+        fred = UserFactory()
+        joe.profile.follow(fred.profile)
+        assert fred.profile in joe.profile.following_user()
+        joe.profile.unfollow(fred.profile)
+        assert fred.profile not in joe.profile.following_user()
+
+    def test_block(self):
+        joe = ProfileFactory()
+        fred = ProfileFactory()
+        fred.block(joe)
+        assert joe.follow(fred) == u'User has blocked you'
+        assert joe in fred.blocking()
