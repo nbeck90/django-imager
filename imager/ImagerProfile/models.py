@@ -16,7 +16,9 @@ class ImagerProfile(models.Model):
 
     profile_picture = models.ImageField(null=True, blank=True,
                                         upload_to='images')
+
     phone_number = models.CharField(max_length=15)  # X(XXX) XXX-XXXX
+
     birthday = models.DateField(null=True, blank=True)
 
     phone_privacy = models.BooleanField(default=False)
@@ -25,17 +27,8 @@ class ImagerProfile(models.Model):
     name_privacy = models.BooleanField(default=False)
     email_privacy = models.BooleanField(default=False)
 
-    # relationship = models.ManyToManyField('self',
-    #                                       symmetrical=False,
-    #                                       related_name='+',
-    #                                       through='imagerprofile.Relationship'
-    #                                       )
-
-    # To find following
-    # return Relationship.objects.filter(left=me, status__in=(1, 3))
-
-    # To find followers
-    # return Relationship.objects.filter(right=me, status__in=(1, 3))
+    objects = models.Manager()
+    active = ActiveImagerManager()
 
     def __str__(self):
         return "User: {}".format(self.user.username)
@@ -43,17 +36,21 @@ class ImagerProfile(models.Model):
     def is_active(self):
         return self.user.is_active()
 
-    def follow(self, other):
-        pass
+    following = models.ManyToManyField('self', symmetrical=False)
 
-    def unfollow(self, other):
-        pass
+    def follow(self, other_profile):
+        return self.following.add(other_profile.ImagerProfile)
 
-    objects = models.Manager()
-    active = ActiveImagerManager()
+    def unfollow(self, other_profile):
+        return self.following.remove(other_profile.ImagerProfile)
+
+    def following(self):
+        return self.following.all()
+
+    def followers(self):
+        return ImagerProfile.objects.filter(following__id__=self.id)
 
 
-# @python_2_unicode_compatible
 # class Relationship(models.Model):
 
 #     default = 0
@@ -61,6 +58,12 @@ class ImagerProfile(models.Model):
 #     friend = 2
 #     block = 4
 
-#     relationship_to = models.ForeignKey(ImagerProfile)
-#     relationship_from = models.ForeignKey(ImagerProfile)
+#     relationship_to = models.ForeignKey(ImagerProfile, related_name='+')
+#     relationship_from = models.ForeignKey(ImagerProfile, related_name='+')
 #     status = models.IntegerField()
+
+#     def following(self):
+#         return Relationship.objects.filter(left=self.user, status__in=(1, 3))
+
+#     def followers(self):
+#         return Relationship.objects.filter(right=self.user, status__in=(1, 3))
