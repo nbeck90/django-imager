@@ -36,15 +36,15 @@ class ImagerProfile(models.Model):
     def is_active(self):
         return self.user.is_active()
 
-    following = models.ManyToManyField('self', symmetrical=False)
+    following = models.ManyToManyField('self', symmetrical=False, required=False)
 
-    def follow(self, other_profile):
-        return self.following.add(other_profile.ImagerProfile)
+    def follow(self, ImagerProfile):
+        self.following.add(ImagerProfile)
 
     def unfollow(self, other_profile):
-        return self.following.remove(other_profile.ImagerProfile)
+        self.following.remove(other_profile.ImagerProfile)
 
-    def following(self):
+    def following_user(self):
         return self.following.all()
 
     def followers(self):
