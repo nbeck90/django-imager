@@ -34,7 +34,7 @@ class ImagerProfile(models.Model):
     following = models.ManyToManyField('self',
                                        symmetrical=False,
                                        null=True,
-                                       related_name='followers')
+                                       related_name='+')
     blocking = models.ManyToManyField('self',
                                       symmetrical=False,
                                       null=True,
@@ -43,6 +43,8 @@ class ImagerProfile(models.Model):
     def follow(self, imagerprofile):
         if self in imagerprofile.blocking.all():
             return 'User has blocked you'
+        if self is imagerprofile:
+            return 'You cannot follow yourself'
         self.following.add(imagerprofile)
 
     def unfollow(self, imagerprofile):
@@ -57,8 +59,8 @@ class ImagerProfile(models.Model):
     def is_following(self):
         return self.following.all()
 
-    # def followers(self):
-    #     return ImagerProfile.objects.filter(following=self)
+    def followers(self):
+        return ImagerProfile.objects.filter(following=self)
 
     def blocked(self):
         return self.blocking.all()
