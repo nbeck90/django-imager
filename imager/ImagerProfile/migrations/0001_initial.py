@@ -17,14 +17,15 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('profile_picture', models.ImageField(null=True, upload_to='images', blank=True)),
-                ('phone_number', models.CharField(max_length=15)),
+                ('phone_number', models.CharField(max_length=20, blank=True)),
                 ('birthday', models.DateField(null=True, blank=True)),
                 ('phone_privacy', models.BooleanField(default=False)),
                 ('birthday_privacy', models.BooleanField(default=False)),
                 ('picture_privacy', models.BooleanField(default=False)),
                 ('name_privacy', models.BooleanField(default=False)),
                 ('email_privacy', models.BooleanField(default=False)),
-                ('following', models.ManyToManyField(to='imagerprofile.ImagerProfile', null=True)),
+                ('blocking', models.ManyToManyField(related_name='+', null=True, to='imagerprofile.ImagerProfile')),
+                ('following', models.ManyToManyField(related_name='+', null=True, to='imagerprofile.ImagerProfile')),
                 ('user', models.OneToOneField(related_name='profile', to=settings.AUTH_USER_MODEL)),
             ],
             options={
