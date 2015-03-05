@@ -34,7 +34,7 @@ class ImagerProfile(models.Model):
     following = models.ManyToManyField('self',
                                        symmetrical=False,
                                        null=True,
-                                       related_name='+')
+                                       related_name='followers')
     blocking = models.ManyToManyField('self',
                                       symmetrical=False,
                                       null=True,
@@ -57,8 +57,8 @@ class ImagerProfile(models.Model):
     def is_following(self):
         return self.following.all()
 
-    def followers(self):
-        return ImagerProfile.objects.filter(following=self)
+    # def followers(self):
+    #     return ImagerProfile.objects.filter(following=self)
 
     def blocked(self):
         return self.blocking.all()
@@ -67,4 +67,4 @@ class ImagerProfile(models.Model):
         return "User: {}".format(self.user.username)
 
     def is_active(self):
-        return self.user.is_active()
+        return self.user.is_active
