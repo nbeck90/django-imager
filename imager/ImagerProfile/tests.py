@@ -58,22 +58,35 @@ class UserTestCase(TestCase):
         assert len(ImagerProfile.active.all()) == 1
 
     def test_user_follow_add(self):
-        joe = UserFactory()
-        fred = UserFactory()
-        joe.profile.follow(fred.profile)
-        assert fred.profile in joe.profile.following_user()
+        """user in followers after following"""
+        joe = ProfileFactory()
+        fred = ProfileFactory()
+        joe.follow(fred)
+        assert joe in fred.followers.all()
 
     def test_user_follow_add_remove(self):
-        joe = UserFactory()
-        fred = UserFactory()
-        joe.profile.follow(fred.profile)
-        assert fred.profile in joe.profile.following_user()
-        joe.profile.unfollow(fred.profile)
-        assert fred.profile not in joe.profile.following_user()
+        """user not in followers after unfollowing"""
+        joe = ProfileFactory()
+        fred = ProfileFactory()
+        joe.follow(fred)
+        assert joe in fred.followers.all()
+        assert fred in joe.is_following()
+        joe.unfollow(fred)
+        assert joe not in fred.followers.all()
 
     def test_block(self):
+        """user not able to follow user that is blocking"""
         joe = ProfileFactory()
         fred = ProfileFactory()
         fred.block(joe)
         assert joe.follow(fred) == u'User has blocked you'
-        assert joe in fred.blocking()
+        assert joe in fred.blocked()
+
+    def test_unblock(self):
+        """user not able to follow user that is blocking"""
+        joe = ProfileFactory()
+        fred = ProfileFactory()
+        fred.block(joe)
+        assert joe in fred.blocked()
+        fred.unblock(joe)
+        assert joe not in fred.blocked()
