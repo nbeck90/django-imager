@@ -1,20 +1,28 @@
 from django.contrib import admin
 from imager_images.models import ImagerAlbum, ImagerPhoto
-from django.contrib.auth.admin import UserAdmin
-
-# Register your models here.
+# from django.contrib.auth.admin import UserAdmin
 
 
-# class ImagerUserInline(admin.StackedInline):
-#     model = ImagerAlbum, ImagerPhoto
-#     can_delete = False
+# class ImagerAlbumInline(admin.StackedInline):
+#     model = ImagerPhoto
 #     verbose_name_plural = 'imager albums'
 
 
-# class UserAdmin(UserAdmin):
-#     class Meta:
-#         app_label = 'imager pictures'
+class PhotoAdmin(admin.ModelAdmin):
+    list_display = ('picture', 'title', 'user',
+                    'description', 'date_modified')
+    list_filter = ['albums', 'user']
+    search_fields = ['title', 'albums', 'user']
+    readonly_fields = ('image_tag', )
 
 
-admin.site.register(ImagerAlbum)
-admin.site.register(ImagerPhoto)
+class AlbumAdmin(admin.ModelAdmin):
+    list_display = ('title', 'user', 'description',
+                    'date_created', 'date_modified')
+    list_filter = ['published', 'user']
+    search_fields = ['title', 'published', 'user']
+    # inlines = (ImagerAlbumInline, )
+
+
+admin.site.register(ImagerAlbum, AlbumAdmin)
+admin.site.register(ImagerPhoto, PhotoAdmin)

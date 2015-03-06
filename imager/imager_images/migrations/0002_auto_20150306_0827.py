@@ -2,31 +2,26 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('imager_images', '0004_auto_20150305_1433'),
+        ('imager_images', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='imageralbum',
-            name='date_modified',
-            field=models.DateField(auto_now=True),
+            name='user',
+            field=models.ForeignKey(related_name='albums', to=settings.AUTH_USER_MODEL, null=True),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='imagerphoto',
-            name='date_modified',
-            field=models.DateField(auto_now=True),
-            preserve_default=True,
-        ),
-        migrations.AlterField(
-            model_name='imagerphoto',
-            name='date_uploaded',
-            field=models.DateField(auto_now_add=True),
+            name='user',
+            field=models.ForeignKey(related_name='photos', to=settings.AUTH_USER_MODEL, null=True),
             preserve_default=True,
         ),
     ]
