@@ -7,8 +7,5 @@ from imagerprofile.models import ImagerProfile
 @receiver(post_save, sender=User)
 def add_profile(sender, instance, **kwargs):
     if kwargs['created']:
-        # try:
         new_profile = ImagerProfile(user=instance)
         new_profile.save()
-        # except:
-        #     pass
