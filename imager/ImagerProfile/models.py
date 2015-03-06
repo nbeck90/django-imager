@@ -12,7 +12,7 @@ class ActiveImagerManager(models.Manager):
 
 @python_2_unicode_compatible
 class ImagerProfile(models.Model):
-
+    """Imager profile that is attached to user on creation"""
     user = models.OneToOneField(User, related_name='profile')
 
     profile_picture = models.ImageField(null=True, blank=True,
@@ -34,10 +34,12 @@ class ImagerProfile(models.Model):
     following = models.ManyToManyField('self',
                                        symmetrical=False,
                                        null=True,
+                                       blank=True,
                                        related_name='followers')
     blocking = models.ManyToManyField('self',
                                       symmetrical=False,
                                       null=True,
+                                      blank=True,
                                       related_name='+')
 
     def follow(self, imagerprofile):
