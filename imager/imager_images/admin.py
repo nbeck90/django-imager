@@ -5,14 +5,15 @@ from django.contrib.auth.admin import UserAdmin
 # Register your models here.
 
 
-class ImagerUserInline(admin.StackedInline):
-    model = ImagerAlbum, ImagerPhoto
-    can_delete = False
-    verbose_name_plural = 'imager albums'
+# class ImagerUserInline(admin.StackedInline):
+#     model = ImagerAlbum, ImagerPhoto
+#     can_delete = False
+#     verbose_name_plural = 'imager albums'
 
 
-class UserAdmin(UserAdmin):
-    inlines = (ImagerUserInline, )
+# class UserAdmin(UserAdmin):
+#     class Meta:
+#         app_label = 'imager pictures'
 
 
 admin.site.register(ImagerAlbum)
