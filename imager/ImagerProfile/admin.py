@@ -3,8 +3,6 @@ from imagerprofile.models import ImagerProfile
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
-# admin.site.unregister(User)
-
 
 class ImagerUserInline(admin.StackedInline):
     model = ImagerProfile
@@ -16,14 +14,12 @@ class ImagerUserInline(admin.StackedInline):
 class UserAdmin(UserAdmin):
     inlines = (ImagerUserInline, )
 
-    # def get_inline_formsets(self, request, formsets, inline_instances,
-    #                         obj=None):
-    #     if obj is None:
-    #         inline_instances.remove(ImagerUserInline)
-    #     else:
-    #         inline_instances.add(ImagerUserInline)
-    #     super(UserAdmin, self).get_inline_formsets(request, formsets,
-    #                                                inline_instances, obj)
+    def get_inline_instances(self, request, obj=None):
+        if obj is None:
+            return []
+        else:
+            return [inline(self.model, self.admin_site)
+                    for inline in self.inlines]
 
 
 admin.site.unregister(User)
