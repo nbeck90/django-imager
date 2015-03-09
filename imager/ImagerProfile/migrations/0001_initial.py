@@ -24,7 +24,8 @@ class Migration(migrations.Migration):
                 ('picture_privacy', models.BooleanField(default=False)),
                 ('name_privacy', models.BooleanField(default=False)),
                 ('email_privacy', models.BooleanField(default=False)),
-                ('following', models.ManyToManyField(to='imagerprofile.ImagerProfile', null=True)),
+                ('blocking', models.ManyToManyField(related_name='+', null=True, to='imagerprofile.ImagerProfile', blank=True)),
+                ('following', models.ManyToManyField(related_name='followers', null=True, to='imagerprofile.ImagerProfile', blank=True)),
                 ('user', models.OneToOneField(related_name='profile', to=settings.AUTH_USER_MODEL)),
             ],
             options={
