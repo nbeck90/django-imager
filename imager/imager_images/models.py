@@ -12,6 +12,14 @@ privacy_list = [(PUBLIC, 'Public'),
                 (SHARED, 'Shared')]
 
 
+# class PhotoManager(models.Manager):
+#     # use_for_related_fields = True
+
+#     def get_queryset(self):
+#         return super(PhotoManager,
+#                      self).get_queryset().filter(user__photos=True)
+
+
 @python_2_unicode_compatible
 class ImagerPhoto(models.Model):
     """image model"""
@@ -55,6 +63,15 @@ class ImagerAlbum(models.Model):
                               blank=True,
                               related_name='+',
                               null=True)
+
+    # objects = models.Manager()
+    # photos = ImagerPhoto()
+
+    def add(self, photo):
+        if self.user is photo.user:
+            photo.albums.add(self)
+        else:
+            raise AttributeError
 
     def __str__(self):
         return str(self.title)

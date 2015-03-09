@@ -64,4 +64,4 @@ class ImageTestCase(TestCase):
         sallys_image = ImageFactory()
         sallys_image.user = sally
         with self.assertRaises(AttributeError):
-            sallys_image.albums.add(bobs_album)
+            bobs_album.add(sallys_image)
