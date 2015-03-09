@@ -9,7 +9,7 @@ class PhotoAdmin(admin.ModelAdmin):
                     'description', 'date_modified')
     list_filter = ['albums', 'user']
     search_fields = ['title', 'albums', 'user']
-    readonly_fields = ('image_tag', 'date_uploaded', 'date_modified', )
+    readonly_fields = ('date_uploaded', 'date_modified')
 
 
 class AlbumAdmin(admin.ModelAdmin):
