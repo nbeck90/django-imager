@@ -5,7 +5,8 @@ from imagerprofile.models import ImagerProfile
 
 
 @receiver(post_save, sender=User)
-def add_profile(sender, instance, **kwargs):
+def add_profile(sender, **kwargs):
     if kwargs['created']:
-        new_profile = ImagerProfile(user=instance)
+        obj = kwargs.get('instance')
+        new_profile = ImagerProfile(user=obj)
         new_profile.save()

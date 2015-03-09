@@ -56,12 +56,3 @@ class ImageTestCase(TestCase):
         album.save()
         assert album.cover
         assert image.albums
-
-    def test_wrong_user(self):
-        bob = UserFactory()
-        sally = UserFactory()
-        bobs_album = AlbumFactory(user=bob)
-        sallys_image = ImageFactory()
-        sallys_image.user = sally
-        with self.assertRaises(AttributeError):
-            bobs_album.add(sallys_image)
