@@ -16,3 +16,5 @@ urlpatterns = patterns('',
     url(r'^$', 'imager.views.home', name='home'),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# if debug: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

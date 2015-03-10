@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
-{% block content %}
-<h1>You are here!!!!</h1>
 {% load staticfiles %}
-<img src="{{ random_photo.url }}" />
+{% block content %}
+<h1>Welcome Home</h1>
+
+{% if random_photo %}
+<img src="{{ random_photo }}" />
+{% else %}
+<img src="{% static 'media/images/git.jpg' %}">
+{% endif %}
+
 {% endblock %}
