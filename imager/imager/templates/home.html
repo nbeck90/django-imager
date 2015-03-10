@@ -1,3 +1,6 @@
 {% extends 'base.html' %}
-
+{% block content %}
 <h1>You are here!!!!</h1>
+{% load staticfiles %}
+<img src="{{ random_photo.url }}" />
+{% endblock %}
