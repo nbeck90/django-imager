@@ -1,19 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.tempalte import RequestContext, loader
-
-
-def stub(request, *args, **kwargs):
-    body = 'Stub View\n\n'
-    if args:
-        body += 'Args: \n'
-        body += "\n".join(["\t%s" % a for a in args])
-    if kwargs:
-        body += 'Kwargs: \n'
-        body += "\n".join(["\t%s" % i for i in kwargs.items()])
-    return HttpResponse(body, content_type='text/plain')
+from django.template import RequestContext, loader
+from imager_images.models import ImagerPhoto
 
 
 def home(request):
-    context = {name: 'bob'}
-    return render(request, 'home.html', context)
+    random_photo = ImagerPhoto.random_photo.all()
+    return render(request, 'home.html', {
+        'random_photo': random_photo.picture
+    })
