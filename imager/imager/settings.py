@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'imagerprofile',
     'imager_images',
     'registration',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,16 +87,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_AUTO_LOGIN = True
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 TEMPLATE_DIRS = [
     os.path.join(BASE_DIR, 'imager/templates')
 ]
+
+# Registration and Email settings
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
