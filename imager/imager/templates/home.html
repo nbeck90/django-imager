@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<h1>Welcome Home</h1>
+
+{% if random_photo %}
+<img src="{% static random_photo.picture.url %}" />
+{% else %}
+<img src="{% static '/media/images/git.jpg' %}">
+{% endif %}
+
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
+import random
 
 
 PUBLIC = 'public'
@@ -12,12 +13,12 @@ privacy_list = [(PUBLIC, 'Public'),
                 (SHARED, 'Shared')]
 
 
-# class PhotoManager(models.Manager):
-#     # use_for_related_fields = True
-
-#     def get_queryset(self):
-#         return super(PhotoManager,
-#                      self).get_queryset().filter(user__photos=True)
+class RandomPhotoManager(models.Manager):
+    def get_queryset(self):
+        qs = super(RandomPhotoManager, self).get_queryset()
+        qs = qs.values_list('id', flat=True)
+        photo = random.choice(qs)
+        return super(RandomPhotoManager, self).get_queryset().filter(id=photo)
 
 
 @python_2_unicode_compatible
@@ -37,6 +38,9 @@ class ImagerPhoto(models.Model):
     published = models.CharField(choices=privacy_list,
                                  default=PUBLIC,
                                  max_length=31)
+
+    objects = models.Manager()
+    random_photo = RandomPhotoManager()
 
     def __str__(self):
         return str(self.title)
