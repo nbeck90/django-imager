@@ -7,9 +7,10 @@ import factory
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
-        django_get_or_create = ('username',)
+        django_get_or_create = ('username', 'password')
 
     username = factory.Sequence(lambda n: "User%03d" % n)
+    password = 'secret'
 
 
 class ProfileFactory(factory.django.DjangoModelFactory):
