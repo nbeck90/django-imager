@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     # Reg Routes
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^login/', auth.views.login, name='login'),
-    url(r'^logout/', auth.views.login, name='logout'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
 
     # Main Routes
     url(r'^$', 'imager.views.home', name='home'),

@@ -22,8 +22,10 @@ def profile(request, username):
     except:
         albums = None
     profile = ImagerProfile.objects.get(user=user)
+    following = len(profile.followers.all())
     return render(request, 'profile.html', {
         'albums': albums,
         'user': user,
         'profile': profile,
+        'following': following,
     })

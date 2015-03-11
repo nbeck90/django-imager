@@ -61,8 +61,8 @@ class ImagerProfile(models.Model):
     def is_following(self):
         return self.following.all()
 
-    # def followers(self):
-    #     return ImagerProfile.objects.filter(following=self)
+    def followers(self):
+        return ImagerProfile.objects.filter(following=self)
 
     def blocked(self):
         return self.blocking.all()

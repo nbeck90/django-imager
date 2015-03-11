@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load thumbnail %}
 {% block content %}
-<h1>Welcome Home</h1>
+<h1>Welcome!</h1>
 
-{% if random_photo %}
-<img src="{% static random_photo.picture.url %}" />
-{% else %}
-<img src="{% static '/media/images/git.jpg' %}">
-{% endif %}
+<div id='splash_photo'>
+    {% if random_photo %}
+    {% thumbnail random_photo.picture "300x300" crop="center" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+    {% endthumbnail %}
+    {% else %}
+    <img src="{% static '/media/images/git.jpg' %}">
+    {% endif %}
+</div>
 
 {% endblock %}
