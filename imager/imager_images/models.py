@@ -42,7 +42,6 @@ class ImagerPhoto(models.Model):
     objects = models.Manager()
     random_photo = RandomPhotoManager()
 
-
     def __str__(self):
         return str(self.title)
 
