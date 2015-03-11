@@ -14,6 +14,7 @@ urlpatterns = patterns('',
 
     # Main Routes
     url(r'^$', 'imager.views.home', name='home'),
+    url(r'^profile/(?P<username>\w+)', 'imager.views.profile', name='profile'),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <link rel="stylesheet" href="../static/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Permanent+Marker|Pacifico' rel='stylesheet' type='text/css'>
+        <nav id='navigation_bar'>
+            <a href="{% url 'home' %}" class='nav_icon'>Home</a>
+            <a href="" class='nav_icon'>Streams</a>
+            {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class='nav_icon'>Login</a>
+            <a href="{% url 'registration_register' %}" class='nav_icon'>Register</a>
+            {% else %}
+            <a href="{% url 'logout' %}" class='nav_icon'>Logout</a>
+            <a href="{% url 'profile' user.username %}" class='nav_icon'>My Profile</a>
+            {% endif %}
+        </nav>
+        <hr>
     </head>
-
     <body>
-
     {% block content %}
     {% endblock %}
-
     </body>
 <html>
