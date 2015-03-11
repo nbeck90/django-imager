@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% block content %}
+
+
+<h1>Welcome, {% if user.first_name %}{{user.first_name}}{% else %}{{user}}{% endif %}!</h1>
+
+<div id='profile_built'>
+    <div id='profile_picture_area'>
+        {% if profile.profile_picture %}
+        <img class='profile_pic' src="{% static profile.profile_picture.url %}" /></br>
+        {% else %}
+        <img class='profile_pic' src="{% static '/media/images/git.jpg' %}" /></br>
+        {% endif %}
+    </div>
+    <div class="information">
+        Phone: {{profile.phone_number}}</br>
+        Birthday: {{profile.birthday}}</br>
+        Date Joined: {{profile.user.date_joined}}
+    </div>
+</div>
+<hr>
+{% for album in albums %}
+{% thumbnail album.cover.picture "100x100" crop="center" as im %}
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+{% empty %}
+    <p>No image</p>
+{% endthumbnail %}
+{% endfor %}
+
+
+{% endblock %}

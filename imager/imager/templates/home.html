@@ -4,8 +4,6 @@
 <h1>Welcome Home</h1>
 
 {% if random_photo %}
-<p>Object: {{ random_photo }}</p>
-<p>title: {{ random_photo.title }}</p>
 <img src="{% static random_photo.picture.url %}" />
 {% else %}
 <img src="{% static '/media/images/git.jpg' %}">

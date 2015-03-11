@@ -39,8 +39,8 @@ class ImagerPhoto(models.Model):
                                  default=PUBLIC,
                                  max_length=31)
 
-    random_photo = RandomPhotoManager()
     objects = models.Manager()
+    random_photo = RandomPhotoManager()
 
 
     def __str__(self):
