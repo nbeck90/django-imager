@@ -55,9 +55,18 @@ class LoginTestCase(TestCase):
 
     def test_login(self):
         """test login is reachable when not logged in,
-        login form changes auth"""
+        login changes auth"""
         response = self.client.get(reverse('login'))
         assert response.status_code == 200
         fred = UserFactory(username='fred', password='secret')
         self.loginHelper('fred', 'secret')
         assert fred.is_authenticated()
+
+    def test_profile_view(self):
+        """authenticated user able to view personal profile"""
+        fred = UserFactory(username='fred', password='secret')
+        self.loginHelper('fred', 'secret')
+        assert fred.is_authenticated()
+        response = self.client.get(reverse('profile'))
+        assert response.status_code == 200
+        assert 'Welcome, fred' in response.context['body']
