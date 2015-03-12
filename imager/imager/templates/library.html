@@ -9,13 +9,17 @@
 <div id='album_gallery'>
     <h3>Albums</h3>
     {% for album in albums %}
-    {% thumbnail album.cover.picture "200x200" crop="center" as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'>
-    {% empty %}
-        <img src="{% static '/media/images/git.jpg' %}" height="200" width="200" class="library_gallery" />
-    {% endthumbnail %}
+        {% thumbnail album.cover.picture "200x200" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'>
+        {% empty %}
+            <img src="{% static '/media/images/git.jpg' %}" height="200" width="200" class="library_gallery" />
+        {% endthumbnail %}
     {% endfor %}
 </div>
+{% if not albums %}
+<div id='no_albums'>
+</div>
+{% endif %}
 <div id='photo_gallery'>
     </hr>
     <h3>Photos</h3>
