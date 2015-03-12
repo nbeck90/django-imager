@@ -10,11 +10,13 @@ urlpatterns = patterns('',
     # Reg Routes
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^login/', auth.views.login, name='login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout',
+                      {'next_page': '/'}, name='logout'),
 
     # Main Routes
+    url(r'^library/(?P<id>\d+)', 'imager.views.library', name='library'),
     url(r'^$', 'imager.views.home', name='home'),
-    url(r'^profile/(?P<username>\w+)', 'imager.views.profile', name='profile'),
+    url(r'^profile/', include('imagerprofile.urls'))
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

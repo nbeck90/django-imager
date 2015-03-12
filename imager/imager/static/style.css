@@ -15,12 +15,36 @@ body {
     margin: 0 auto;
 }
 
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
 h1 {
     font-family: 'Permanent Marker', sans-serif;
     color: #fff;
     text-shadow: 4px 4px 10px #222;
     text-align: center;
     font-size: 3em;
+}
+
+h2 {
+    font-family: 'Permanent Marker', sans-serif;
+    color: #fff;
+    text-shadow: 4px 4px 10px #222;
+    text-align: center;
+    font-size: 2em;
+    text-decoration: none;
+    text-align: left;
+    margin-top: -100px;
+}
+
+h3 {
+    font-family: 'Permanent Marker', sans-serif;
+    color: #fff;
+    text-shadow: 4px 4px 10px #222;
+    text-align: center;
+    font-size: 2em;
 }
 
 .nav_icon {
@@ -40,17 +64,15 @@ h1 {
     text-shadow: 4px 4px 10px #222;
     font-size: 1.5em;
     float: center;
-    width: 100%;
-    margin-bottom: 45px;
-    padding-top: 10px;
+    margin: 0 auto;
+    display: table;
 }
 
 .profile_pic {
     height: 250px;
-    width: 200px;
+    width: 180px;
     margin-left: 25px;
-    margin-top: -80px;
-    margin-right: 15px;
+    margin-right: px;
     border-radius: 10px;
     box-shadow: 4px 4px 10px #222;
     float: left;
@@ -73,7 +95,56 @@ img {
     font-size: 1.5em;
 }
 
+.required {
+    font-family: 'Pacifico', sans-serif;
+    color: #fff;
+    text-shadow: 4px 4px 10px #222;
+    font-size: 1.5em;
+}
+
 input {
     font-family: sans-serif;
     color: #111;
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 4px 4px 10px #222;
+    border: 0px;
+    background: #fff;
+}
+
+#profile_content {
+    height: 450px;
+}
+
+.library_gallery {
+    float: left;
+    width: 17%;
+    margin: 4%;
+}
+
+#photo_gallery {
+    display: inline-block;
+    width: 100%;
+    float: center;
+}
+
+#album_gallery {
+    display: inline-block;
+    width: 100%;
+    float: center;
+}
+
+#album_gallery h3{
+    font-family: 'Pacifico', sans-serif;
+    font-size: 4em;
+    margin-bottom: -30px;
+    margin-top: 10px;
+}
+
+#photo_gallery h3{
+    font-family: 'Pacifico', sans-serif;
+    font-size: 4em;
+    margin-top: -40px;
+    margin-bottom: -30px;
 }

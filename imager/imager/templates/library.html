@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% block content %}
+
+
+<h1>Welcome to Your Library!</h1>
+<hr>
+<div id='album_gallery'>
+    <h3>Albums</h3>
+    {% for album in albums %}
+    {% thumbnail album.cover.picture "200x200" crop="center" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'>
+    {% empty %}
+        <img src="{% static '/media/images/git.jpg' %}" height="200" width="200" class="library_gallery" />
+    {% endthumbnail %}
+    {% endfor %}
+</div>
+<div id='photo_gallery'>
+    </hr>
+    <h3>Photos</h3>
+    {% for photo in photos %}
+    {% thumbnail photo.picture "200x200" crop="center" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'>
+    {% endthumbnail %}
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}
