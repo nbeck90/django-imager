@@ -1,9 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 # from django.core.exceptions import ObjectDoesNotExist
 from imager_images.models import ImagerPhoto, ImagerAlbum, User
-from django.views.generic import ListView, UpdateView, DetailView
-from imagerprofile.models import ImagerProfile
 # from imagerprofile.forms import ImagerProfileEditFeature
 
 
@@ -79,9 +76,14 @@ def stream(request, id):
         photos = ImagerPhoto.objects.filter(user=user).all()
     except:
         photos = None
+    try:
+        followed_photos = ImagerPhoto.objects.filter(user=user.profile.is_following()).all()
+    except:
+        followed_photos = None
     return render(request, 'stream.html', {
         'user': user,
-        'my_albums': my_albums,
-        'followed_albums': followed_albums,
-        'photos': photos
+        'my_albums': my_albums.order_by('-date_created'),
+        'followed_albums': followed_albums.order_by('-date_created'),
+        'photos': photos.order_by('-date_uploaded'),
+        'followed_photos': followed_photos.order_by('-date_uploaded'),
     })

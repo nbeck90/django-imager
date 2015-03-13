@@ -15,7 +15,7 @@ privacy_list = [(PUBLIC, 'Public'),
 
 class RandomPhotoManager(models.Manager):
     def get_queryset(self):
-        qs = super(RandomPhotoManager, self).get_queryset()
+        qs = super(RandomPhotoManager, self).get_queryset().filter(published=PUBLIC)
         qs = qs.values_list('id', flat=True)
         photo = random.choice(qs)
         return super(RandomPhotoManager, self).get_queryset().filter(id=photo)
