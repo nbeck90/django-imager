@@ -1,9 +1,11 @@
 from django.conf.urls import patterns, include, url
-from django.conf.urls.static import static
+from django.contrib.auth.decorators import login_required
+from imager_images.views import AlbumCreate, AlbumUpdate, PhotoCreate, PhotoDelete
 
-urlpatterns = patterns('',
-    url(r'^upload/$', 'imager_images.views.PhotoCreate', name='upload'),
-    url(r'^delete/$', 'imager_images.views.PhotoDelete', name='delete'),
-    url(r'^album_create/$', 'imager_images.views.AlbumCreate', name='album_create'),
-    url(r'^album_update/$', 'imager_images.views.AlbumUpdate', name='album_update'),
+
+urlpatterns = patterns('imager_images.views',
+    url(r'^upload/$', login_required(PhotoCreate.as_view()), name='upload'),
+    url(r'^delete/(?P<id>\d+)/$', login_required(PhotoDelete.as_view()), name='delete'),
+    url(r'^album_create/$', login_required(AlbumCreate.as_view()), name='album_create'),
+    url(r'^album_update/(?P<id>\d+)/$', login_required(AlbumUpdate.as_view()), name='album_update'),
 )
