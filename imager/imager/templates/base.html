@@ -7,12 +7,12 @@
         <nav id='navigation_bar'>
             <a href="{% url 'home' %}" class='nav_icon'>Home</a>
             <a href="" class='nav_icon'>Stream</a>
-            {% if not user.is_authenticated %}
-            <a href="{% url 'login' %}" class='nav_icon'>Login</a>
-            <a href="{% url 'registration_register' %}" class='nav_icon'>Register</a>
-            {% else %}
+            {% if user.is_authenticated %}
             <a href="{% url 'logout' %}" class='nav_icon'>Logout</a>
             <a href="{% url 'my_profile' %}" class='nav_icon'>My Profile</a>
+            {% else %}
+            <a href="{% url 'login' %}" class='nav_icon'>Login</a>
+            <a href="{% url 'registration_register' %}" class='nav_icon'>Register</a>
             {% endif %}
         </nav>
         <hr>

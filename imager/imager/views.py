@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 # from django.core.exceptions import ObjectDoesNotExist
 from imager_images.models import ImagerPhoto, User
 from django.views.generic import ListView, UpdateView, DetailView
@@ -25,6 +26,7 @@ class ImagerProfileUpdateView(UpdateView):
     # form_class = ImagerProfileEditFeature
 
 
+@login_required(login_url='/login/')
 def profile(request):
     # import pdb; pdb.set_trace()
     user = request.user
