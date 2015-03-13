@@ -17,17 +17,18 @@
     {% endfor %}
 </div>
 {% if not albums %}
-<div id='no_albums'>
-</div>
+    <div id='no_albums'>
+    </div>
 {% endif %}
 <div id='photo_gallery'>
-    </hr>
-    <h3>Photos</h3>
-    {% for photo in photos %}
+<hr>
+<br />
+<h3>Photos</h3>
+{% for photo in photos %}
     {% thumbnail photo.picture "200x200" crop="center" as im %}
         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'>
     {% endthumbnail %}
-    {% endfor %}
+{% endfor %}
 </div>
 
 
