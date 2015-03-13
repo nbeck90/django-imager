@@ -25,9 +25,9 @@ class ProfileFactory(factory.django.DjangoModelFactory):
 
 
 class LoginTestCase(TestCase):
-    def setUp(self):
-        """set up basic client"""
-        self.client = Client()
+    # def setUp(self):
+    #     """set up basic client"""
+    #     self.client = Client()
 
     def loginHelper(self, username, password):
         return self.client.post('/login', {'username': username,
@@ -36,7 +36,7 @@ class LoginTestCase(TestCase):
     def test_home(self):
         """test that home page is available to logged out user"""
         response = self.client.get(reverse('home'))
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200)
 
     def test_register(self):
         """test registration is available, and redirects on post"""
@@ -44,29 +44,37 @@ class LoginTestCase(TestCase):
         email = 'sally@sally.com'
         password = 'secret'
         response = self.client.get(reverse('registration_register'))
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200)
         response = self.client.post(
             reverse('registration_register'), {
                 'username': username,
                 'email': email,
                 'password': password
             })
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200)
 
     def test_login(self):
         """test login is reachable when not logged in,
         login changes auth"""
         response = self.client.get(reverse('login'))
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200)
         fred = UserFactory(username='fred', password='secret')
         self.loginHelper('fred', 'secret')
         assert fred.is_authenticated()
 
+    def test_profile_view_redirect(self):
+        """unauthenticated user redirected when trying
+        to view personal profile"""
+        # response = self.client.get('/logout')
+        response = self.client.get('/profile')
+        self.assertRedirects(response, '/login/', status_code=301)
+
     def test_profile_view(self):
         """authenticated user able to view personal profile"""
         fred = UserFactory(username='fred', password='secret')
-        self.loginHelper('fred', 'secret')
+        response = self.loginHelper('fred', 'secret')
         assert fred.is_authenticated()
-        response = self.client.get(reverse('profile'))
-        assert response.status_code == 200
+        response = self.client.get('/profile')
+        # import pdb; pdb.set_trace()
+        self.assertEqual(response.status_code, 200)
         assert 'Welcome, fred' in response.context['body']

@@ -26,7 +26,7 @@ class ImagerProfileUpdateView(UpdateView):
     # form_class = ImagerProfileEditFeature
 
 
-@login_required(login_url='/login/')
+@login_required()
 def profile(request):
     # import pdb; pdb.set_trace()
     user = request.user
