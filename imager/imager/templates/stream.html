@@ -8,9 +8,13 @@
 <hr>
 <div id='album_gallery'>
     <h3>Albums</h3>
-    {% if not followed_albums %}
-    <h1>NO ALBUMSSSSSS</h1>
-    {% endif %}
+    {% for album in my_albums %}
+        {% thumbnail album.cover.picture "200x200" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'>
+        {% empty %}
+            <img src="{% static '/media/images/git.jpg' %}" height="200" width="200" class="library_gallery" />
+        {% endthumbnail %}
+    {% endfor %}
     {% for album in followed_albums %}
         {% thumbnail album.cover.picture "200x200" crop="center" as im %}
             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'>
@@ -27,6 +31,11 @@
     </hr>
     <h3>Photos</h3>
     {% for photo in photos %}
+    {% thumbnail photo.picture "200x200" crop="center" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'>
+    {% endthumbnail %}
+    {% endfor %}
+    {% for photo in followed_photos %}
     {% thumbnail photo.picture "200x200" crop="center" as im %}
         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'>
     {% endthumbnail %}
