@@ -5,7 +5,7 @@ from imager_images.models import ImagerAlbum, ImagerPhoto
 
 class PhotoAdmin(admin.ModelAdmin):
     model = ImagerPhoto
-    list_display = ('picture', 'title', 'user',
+    list_display = ('id', 'picture', 'title', 'user',
                     'description', 'date_modified')
     list_filter = ['albums', 'user']
     search_fields = ['title', 'albums', 'user']
@@ -13,7 +13,7 @@ class PhotoAdmin(admin.ModelAdmin):
 
 
 class AlbumAdmin(admin.ModelAdmin):
-    list_display = ('title', 'user', 'description',
+    list_display = ('id', 'title', 'user', 'description',
                     'date_created', 'date_modified')
     list_filter = ['published', 'user']
     search_fields = ['title', 'published', 'user']

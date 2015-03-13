@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 # from django.core.exceptions import ObjectDoesNotExist
-from imager_images.models import ImagerPhoto, User
+from imager_images.models import ImagerPhoto, ImagerAlbum, User
 from django.views.generic import ListView, UpdateView, DetailView
 from imagerprofile.models import ImagerProfile
 # from imagerprofile.forms import ImagerProfileEditFeature
@@ -17,40 +17,40 @@ def home(request):
     })
 
 
-class ImagerProfileListView(DetailView):
-    model = ImagerProfile
+# class ImagerProfileDetailView(DetailView):
+#     model = ImagerProfile
 
 
-class ImagerProfileUpdateView(UpdateView):
-    model = ImagerProfile
-    # form_class = ImagerProfileEditFeature
+# class ImagerProfileUpdateView(UpdateView):
+#     model = ImagerProfile
+#     # form_class = ImagerProfileEditFeature
 
 
-@login_required()
-def profile(request):
-    # import pdb; pdb.set_trace()
-    user = request.user
-    try:
-        albums = request.user.albums.filter(user=user).all()
-    except:
-        albums = None
-    profile = ImagerProfile.objects.get(user=user)
-    following = len(profile.followers.all())
-    photos = ImagerPhoto.objects.filter(user=user).count()
-    return render(request, 'profile.html', {
-        'albums': albums,
-        'user': user,
-        'profile': profile,
-        'following': following,
-        'num_album': len(albums),
-        'num_photo': photos
-    })
+# @login_required()
+# def profile(request):
+#     # import pdb; pdb.set_trace()
+#     user = request.user
+#     try:
+#         albums = request.user.albums.filter(user=user).all()
+#     except:
+#         albums = None
+#     profile = ImagerProfile.objects.get(user=user)
+#     following = len(profile.followers.all())
+#     photos = ImagerPhoto.objects.filter(user=user).count()
+#     return render(request, 'profile.html', {
+#         'albums': albums,
+#         'user': user,
+#         'profile': profile,
+#         'following': following,
+#         'num_album': len(albums),
+#         'num_photo': photos
+#     })
 
 
 def library(request, id):
     user = User.objects.get(pk=id)
     try:
-        albums = request.user.albums.filter(user=user).all()
+        albums = ImagerAlbum.objects.filter(user=user).all()
     except:
         albums = None
     try:
