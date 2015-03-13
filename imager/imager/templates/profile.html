@@ -5,6 +5,7 @@
 
 <div id='profile_content'>
     <h1>Welcome, {% if user.first_name %}{{user.first_name}}{% else %}{{user}}{% endif %}!</h1>
+    <h2><a href="{% url 'stream' user.id %}">Stream</a><h2>
     <h2><a href="{% url 'library' user.id %}">{% if user.first_name %}{{user.first_name}}{% else %}{{user}}{% endif %}'s Library</a></h2>
 
     <div id='profile_built'>
