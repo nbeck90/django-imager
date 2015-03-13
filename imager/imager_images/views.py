@@ -38,7 +38,6 @@ class AlbumDelete(DeleteView):
 
 
 class PhotoCreate(CreateView):
-    # queryset = ImagerPhoto.objects.filter(albums__user=user)
     model = ImagerPhoto
     context_object_name = 'photo'
     success_url = '/profile/'
@@ -54,11 +53,11 @@ class PhotoCreate(CreateView):
         form.instance.user = self.request.user
         return super(PhotoCreate, self).form_valid(form)
 
-    # def get_context_data(self, **kwargs):
-    #     user = self.request.user
-    #     context = super(PhotoCreate, self).get_context_data(**kwargs)
-    #     context['albums'] = ImagerAlbum.objects.filter(user=user).all()
-    #     return context
+    def get_form(self, form_class):
+        form = super(PhotoCreate, self).get_form(form_class)
+        qs = form.fields['albums'].queryset
+        form.fields['albums'].queryset = qs.filter(user=self.request.user)
+        return form
 
 
 class PhotoDelete(DeleteView):
