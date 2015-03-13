@@ -5,17 +5,17 @@ from imagerprofile.models import ImagerProfile
 from imager_images.models import ImagerPhoto, ImagerAlbum
 
 
-class AlbumCreateView(CreateView):
+class AlbumCreate(CreateView):
     model = ImagerAlbum
 
 
-class AlbumUpdateView(UpdateView):
+class AlbumUpdate(UpdateView):
     model = ImagerAlbum
 
 
-class PhotoCreateView(CreateView):
+class PhotoCreate(CreateView):
     model = ImagerPhoto
 
 
-class PhotoDeleteView(DeleteView):
+class PhotoDelete(DeleteView):
     model = ImagerPhoto
