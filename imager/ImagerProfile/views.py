@@ -2,12 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 # from django.core.exceptions import ObjectDoesNotExist
 from imager_images.models import ImagerPhoto, ImagerAlbum, User
-from django.views.generic import UpdateView, DetailView
+from django.views.generic import UpdateView
 from imagerprofile.models import ImagerProfile
-
-
-class ImagerProfileDetailView(DetailView):
-    model = ImagerProfile
 
 
 class ImagerProfileUpdateView(UpdateView):
@@ -23,7 +19,9 @@ class ImagerProfileUpdateView(UpdateView):
         'birthday_privacy',
         'picture_privacy',
         'name_privacy',
-        'email_privacy'
+        'email_privacy',
+        'following',
+        'blocking',
     ]
 
 
