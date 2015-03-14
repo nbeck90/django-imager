@@ -4,8 +4,8 @@
 {% block content %}
 
 <div id='profile_content'>
-    <h1>Welcome, {% if user.first_name %}{{user.first_name}}{% else %}{{user}}{% endif %}!</h1>
-    <h2 id='library_link'><a href="{% url 'library' user.id %}">{% if user.first_name %}{{user.first_name}}{% else %}{{user}}{% endif %}'s Library</a></h2>
+    <h1>Welcome, {% if user.first_name %}{{ user.first_name }}{% else %}{{ user }}{% endif %}!</h1>
+    <h2 id='library_link'><a href="{% url 'library' user.id %}">{% if user.first_name %}{{ user.first_name }}{% else %}{{ user }}{% endif %}'s Library</a></h2>
 
     <div id='profile_built'>
         <div id='profile_picture_area'>
@@ -16,17 +16,18 @@
             {% endif %}
         </div>
         <div class="information">
-            Date Joined: {{profile.user.date_joined|date:"M. d, Y"}}</br>
-            Birthday: {{profile.birthday}}</br>
-            Phone: {{profile.phone_number}}</br>
-            Followers: {{following}}</br>
-            Albums: {{num_album}}</br>
-            Photos: {{num_photo}}
+            Date Joined: {{ profile.user.date_joined|date:"M. d, Y" }}</br>
+            Birthday: {{ profile.birthday }}</br>
+            Phone: {{ profile.phone_number }}</br>
+            Followers: {{ following }}</br>
+            Albums: {{ albums|length }}</br>
+            Photos: {{ num_photo }}
         </div>
     </div>
 </div>
-<h2 id='stream_link'><a href="{% url 'stream' user.id %}">Stream</a><h2>
+<h2 id='stream_link'><a href="{% url 'stream' user.id %}">Stream</a></h2>
 <div id='profile_albums'>
+    <h2>My Albums</h2>
     {% for album in albums %}
     {% thumbnail album.cover.picture "100x100" crop="center" as im %}
         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
