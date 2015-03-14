@@ -12,7 +12,19 @@ class ImagerProfileDetailView(DetailView):
 
 class ImagerProfileUpdateView(UpdateView):
     model = ImagerProfile
-    # form_class = ImagerProfileEditFeature
+    template_name_suffix = '_update_form'
+    context_object_name = 'profile'
+    success_url = '/profile/'
+    fields = [
+        'profile_picture',
+        'phone_number',
+        'birthday',
+        'phone_privacy',
+        'birthday_privacy',
+        'picture_privacy',
+        'name_privacy',
+        'email_privacy'
+    ]
 
 
 @login_required()
@@ -50,6 +62,5 @@ def user_profile(request, id):
         'user': user,
         'profile': profile,
         'following': following,
-        'num_album': len(albums),
         'num_photo': num_photos
     })
