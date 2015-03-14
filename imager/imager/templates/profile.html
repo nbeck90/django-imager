@@ -12,7 +12,7 @@
             {% if profile.profile_picture %}
             <img class='profile_pic' src="{% static profile.profile_picture.url %}" /></br>
             {% else %}
-            <img class='profile_pic' src="{% static '/media/images/git.jpg' %}" /></br>
+            <img class='profile_pic' src="{% static 'default-user-image.png' %}" /></br>
             {% endif %}
         </div>
         <div class="information">
@@ -21,7 +21,8 @@
             Phone: {{ profile.phone_number }}</br>
             Followers: {{ following }}</br>
             Albums: {{ albums|length }}</br>
-            Photos: {{ num_photo }}
+            Photos: {{ num_photo }}</br>
+            <small><a href="{% url 'profile_edit' user.id %}">Update my profile</a></small>
         </div>
     </div>
 </div>
@@ -29,11 +30,11 @@
 <div id='profile_albums'>
     <h2>My Albums</h2>
     {% for album in albums %}
-    {% thumbnail album.cover.picture "100x100" crop="center" as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-    {% empty %}
-        <img src="{% static '/media/images/git.jpg' %}" height="100" width="100"/>
-    {% endthumbnail %}
+        {% thumbnail album.cover.picture "100x100" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% empty %}
+            <img src="{% static '/media/images/git.jpg' %}" height="100" width="100"/>
+        {% endthumbnail %}
     {% endfor %}
 </div>
 

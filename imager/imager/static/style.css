@@ -1,4 +1,5 @@
 html {
+    /*background-color: #99a;*/
     background-image: url("wallpaper.jpg");
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -157,13 +158,18 @@ input {
 
 #stream_link {
     margin-left: 55px;
-    margin-top: -110px;
+    margin-top: -100px;
 }
 
 #profile_albums {
     padding-top: 90px;
+    padding-left: 55px;
 }
 
 #library_link {
     margin-left: 10px;
+}
+
+#profile_edit_table {
+    margin-left: 20%;
 }
