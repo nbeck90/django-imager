@@ -20,7 +20,7 @@
             {% if not profile.birthday_privacy %}Birthday: {{ profile.birthday }}</br>{% endif %}
             {% if not profile.phone_privacy %}Phone: {{ profile.phone_number }}</br>{% endif %}
             Followers: {{ following }}</br>
-            Albums: {{ num_album }}</br>
+            Albums: {{ albums|length }}</br>
             Photos: {{ num_photo }}
         </div>
     </div>

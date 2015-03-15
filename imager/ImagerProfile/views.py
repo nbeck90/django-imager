@@ -40,7 +40,6 @@ def profile(request):
         'user': user,
         'profile': profile,
         'following': following,
-        'num_album': len(albums),
         'num_photo': num_photos
     })
 
