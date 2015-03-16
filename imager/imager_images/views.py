@@ -19,6 +19,12 @@ class AlbumCreate(CreateView):
         form.instance.user = self.request.user
         return super(AlbumCreate, self).form_valid(form)
 
+    def get_form(self, form_class):
+        form = super(AlbumCreate, self).get_form(form_class)
+        qs = form.fields['cover'].queryset
+        form.fields['cover'].queryset = qs.filter(user=self.request.user)
+        return form
+
 
 class AlbumUpdate(UpdateView):
     model = ImagerAlbum
