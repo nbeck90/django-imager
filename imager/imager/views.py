@@ -14,36 +14,6 @@ def home(request):
     })
 
 
-# class ImagerProfileDetailView(DetailView):
-#     model = ImagerProfile
-
-
-# class ImagerProfileUpdateView(UpdateView):
-#     model = ImagerProfile
-#     # form_class = ImagerProfileEditFeature
-
-
-# @login_required()
-# def profile(request):
-#     # import pdb; pdb.set_trace()
-#     user = request.user
-#     try:
-#         albums = request.user.albums.filter(user=user).all()
-#     except:
-#         albums = None
-#     profile = ImagerProfile.objects.get(user=user)
-#     following = len(profile.followers.all())
-#     photos = ImagerPhoto.objects.filter(user=user).count()
-#     return render(request, 'profile.html', {
-#         'albums': albums,
-#         'user': user,
-#         'profile': profile,
-#         'following': following,
-#         'num_album': len(albums),
-#         'num_photo': photos
-#     })
-
-
 def library(request, id):
     user = User.objects.get(pk=id)
     try:
@@ -62,7 +32,6 @@ def library(request, id):
 
 
 def stream(request, id):
-    # import pdb; pdb.set_trace()
     user = User.objects.get(pk=id)
     try:
         my_albums = request.user.albums.filter(user=user).all()

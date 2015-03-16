@@ -20,7 +20,6 @@ urlpatterns = patterns('',
     url(r'^$', 'imager.views.home', name='home'),
     url(r'^profile/', include('imagerprofile.urls')),
     url(r'^images/', include('imager_images.urls')),
-
 )
 
 if settings.DEBUG:
