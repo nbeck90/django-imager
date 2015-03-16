@@ -7,7 +7,7 @@ from imager_images.models import ImagerPhoto, ImagerAlbum
 class AlbumCreate(CreateView):
     model = ImagerAlbum
     context_object_name = 'album'
-    success_url = '/library/'
+    success_url = '/profile/library/'
     fields = [
         'title',
         'description',
@@ -29,7 +29,7 @@ class AlbumCreate(CreateView):
 class AlbumUpdate(UpdateView):
     model = ImagerAlbum
     context_object_name = 'album'
-    success_url = '/library/'
+    success_url = '/profile/library/'
     fields = [
         'title',
         'description',
@@ -46,13 +46,13 @@ class AlbumUpdate(UpdateView):
 
 class AlbumDelete(DeleteView):
     model = ImagerAlbum
-    success_url = '/library/'
+    success_url = 'library'
 
 
 class PhotoCreate(CreateView):
     model = ImagerPhoto
     context_object_name = 'photo'
-    success_url = '/library/'
+    success_url = '/profile/library/'
     fields = [
         'title',
         'picture',
@@ -75,7 +75,7 @@ class PhotoCreate(CreateView):
 class PhotoUpdate(UpdateView):
     model = ImagerPhoto
     context_object_name = 'photo'
-    success_url = '/library/'
+    success_url = '/profile/library/'
     fields = [
         'title',
         'picture',
@@ -93,4 +93,4 @@ class PhotoUpdate(UpdateView):
 
 class PhotoDelete(DeleteView):
     model = ImagerPhoto
-    success_url = '/library/'
+    success_url = '/profile/library/'
