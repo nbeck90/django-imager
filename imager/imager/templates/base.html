@@ -2,21 +2,25 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <title>Imager!</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link href='http://fonts.googleapis.com/css?family=Fredoka+One|Pacifico' rel='stylesheet' type='text/css'>
-        <nav id='navigation_bar'>
-            <a href="{% url 'home' %}" class='nav_icon'>Home</a>
-            {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class='nav_icon'>Logout</a>
-            <a href="{% url 'my_profile' %}" class='nav_icon'>My Profile</a>
-            {% else %}
-            <a href="{% url 'login' %}" class='nav_icon'>Login</a>
-            <a href="{% url 'registration_register' %}" class='nav_icon'>Register</a>
-            {% endif %}
-            <a href="{% url 'photo_add' %}" class='nav_icon'>Add Photo</a>
-            <a href="{% url 'album_add' %}" class='nav_icon'>Add Album</a>
+        <nav>
+            <!-- <h4 class='nav_icon'>Imager</h4> -->
+            <div id='navigation_bar'>
+                <a href="{% url 'home' %}" class='nav_icon'>Home</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'my_profile' %}" class='nav_icon'>My Profile</a>
+                <a href="{% url 'upload' %}" class='nav_icon'>Upload Photo</a>
+                <a href="{% url 'album_create' %}" class='nav_icon'>Create Album</a>
+                <a href="{% url 'logout' %}" class='nav_icon'>Logout</a>
+                {% else %}
+                <a href="{% url 'login' %}" class='nav_icon'>Login</a>
+                <a href="{% url 'registration_register' %}" class='nav_icon'>Register</a>
+                {% endif %}
+            </div>
         </nav>
-        <hr>
+        <!-- <hr> -->
     </head>
     <body>
     {% block content %}

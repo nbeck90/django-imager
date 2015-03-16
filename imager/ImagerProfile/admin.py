@@ -13,6 +13,7 @@ class ImagerUserInline(admin.StackedInline):
 
 class UserAdmin(UserAdmin):
     inlines = (ImagerUserInline, )
+    list_display = ('id', 'username', 'email', 'first_name', 'last_name')
 
     def get_inline_instances(self, request, obj=None):
         if obj is None:

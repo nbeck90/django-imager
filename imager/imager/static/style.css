@@ -1,4 +1,5 @@
 html {
+    /*background-color: #99a;*/
     background-image: url("wallpaper.jpg");
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -8,6 +9,13 @@ html {
 }
 
 body {
+    margin: 0;
+}
+
+nav {
+    background-color:rgba(200, 200, 200, 0.5);
+    width: 100%;
+    height: 50px;
 }
 
 #navigation_bar {
@@ -47,6 +55,12 @@ h3 {
     font-size: 2em;
 }
 
+/*h4 {
+    float: left;
+    display: inline-block;
+    font-size: 1.5em;
+}*/
+
 .nav_icon {
     text-shadow: 4px 4px 10px #222;
     text-decoration: none;
@@ -73,8 +87,7 @@ h3 {
 .profile_pic {
     height: 250px;
     width: 180px;
-    margin-left: 25px;
-    margin-right: px;
+    margin-left: 30px;
     border-radius: 10px;
     box-shadow: 4px 4px 10px #222;
     float: left;
@@ -175,14 +188,27 @@ select, textarea, input {
 }
 
 #stream_link {
-    margin-left: 55px;
-    margin-top: -110px;
+    margin-left: 30px;
+    margin-top: -100px;
 }
 
 #profile_albums {
+    text-align: center;
     padding-top: 90px;
 }
 
+#profile_albums_title {
+    text-align: center;
+}
+
+#welcome_name {
+    font-family: 'Pacifico', sans-serif;
+}
+
 #library_link {
-    margin-left: 10px;
+    margin-left: 30px;
+}
+
+#profile_edit_table {
+    margin-left: 20%;
 }

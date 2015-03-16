@@ -2,8 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin, auth
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.decorators import login_required
-from imager_images.views import PhotoCreate, AlbumCreate
+
 
 urlpatterns = patterns('',
     # Admin Routes
@@ -21,9 +20,5 @@ urlpatterns = patterns('',
     url(r'^$', 'imager.views.home', name='home'),
     url(r'^profile/', include('imagerprofile.urls')),
     url(r'^images/', include('imager_images.urls')),
-    url(r'^photo/add/$', login_required(PhotoCreate.as_view()), name='photo_add'),
-    url(r'^album/add/$', login_required(AlbumCreate.as_view()), name='album_add'),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# if debug: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block content %}
+<h3>Update my profile!</h3>
+<div id='profile_picture_area'>
+    {% if profile.profile_picture %}
+        <img class='profile_pic' src="{% static profile.profile_picture.url %}" /></br>
+    {% else %}
+        <img class='profile_pic' src="{% static 'default-user-image.png' %}" /></br>
+    {% endif %}
+</div>
+<div id="profile_edit_table">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Update">
+    </form>
+</div>
+{% endblock %}
