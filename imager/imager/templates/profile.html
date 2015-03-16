@@ -6,7 +6,7 @@
 {% block content %}
 <div id='profile_content'>
     <h1 id='welcome_name'>Welcome, {% if user.first_name %}{{ user.first_name }}{% else %}{{ user }}{% endif %}!</h1>
-    <h2 id='library_link'><a href="{% url 'library' user.id %}">{% if user.first_name %}{{ user.first_name }}{% else %}{{ user }}{% endif %}'s Library</a></h2>
+    <h2 id='library_link'><a href="{% url 'library' %}">{% if user.first_name %}{{ user.first_name }}{% else %}{{ user }}{% endif %}'s Library</a></h2>
 
     <div id='profile_built'>
         <div id='profile_picture_area'>
@@ -27,14 +27,14 @@
         </div>
     </div>
 </div>
-<h2 id='stream_link'><a href="{% url 'stream' user.id %}">Stream</a></h2>
+<h2 id='stream_link'><a href="{% url 'stream' %}">Stream</a></h2>
 <div id='profile_albums'>
     <h2 id='profile_albums_title'>My Albums</h2>
     {% for album in albums %}
         {% thumbnail album.cover.picture "100x100" crop="center" as im %}
-            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+            <a href="{% url 'album_update' album.id %}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"></a>
         {% empty %}
-            <img src="{% static '/media/images/git.jpg' %}" height="100" width="100"/>
+            <a href="{% url 'album_update' album.id %}"><img src="{% static '/media/images/git.jpg' %}" height="100" width="100"/></a>
         {% endthumbnail %}
     {% endfor %}
 </div>

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="#" onclick="history.back();"><h5>&lsaquo;&lsaquo; Back</h5></a>
+<a href="javascript:history.go(-1)"><h5>&lsaquo;&lsaquo; Back</h5></a>
 <h3>Create a new album!</h3>
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
