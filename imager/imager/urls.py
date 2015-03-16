@@ -20,5 +20,7 @@ urlpatterns = patterns('',
     url(r'^$', 'imager.views.home', name='home'),
     url(r'^profile/', include('imagerprofile.urls')),
     url(r'^images/', include('imager_images.urls')),
+)
 
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
