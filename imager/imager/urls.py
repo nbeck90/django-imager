@@ -16,7 +16,6 @@ urlpatterns = patterns('',
 
     # Main Routes
     url(r'^$', 'imager.views.home', name='home'),
-    url(r'^stream/(?P<id>\d+)$', 'imager.views.stream', name='stream'),
     url(r'^profile/', include('imagerprofile.urls')),
     url(r'^images/', include('imager_images.urls')),
 )
