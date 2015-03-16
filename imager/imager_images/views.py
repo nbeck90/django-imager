@@ -7,7 +7,7 @@ from imager_images.models import ImagerPhoto, ImagerAlbum
 class AlbumCreate(CreateView):
     model = ImagerAlbum
     context_object_name = 'album'
-    success_url = '/profile/'
+    success_url = '/library/'
     fields = [
         'title',
         'description',
@@ -29,7 +29,7 @@ class AlbumCreate(CreateView):
 class AlbumUpdate(UpdateView):
     model = ImagerAlbum
     context_object_name = 'album'
-    success_url = '/profile/'
+    success_url = '/library/'
     fields = [
         'title',
         'description',
@@ -37,16 +37,22 @@ class AlbumUpdate(UpdateView):
         'published'
     ]
 
+    def get_form(self, form_class):
+        form = super(AlbumUpdate, self).get_form(form_class)
+        qs = form.fields['cover'].queryset
+        form.fields['cover'].queryset = qs.filter(user=self.request.user)
+        return form
+
 
 class AlbumDelete(DeleteView):
     model = ImagerAlbum
-    success_url = '/profile/'
+    success_url = '/library/'
 
 
 class PhotoCreate(CreateView):
     model = ImagerPhoto
     context_object_name = 'photo'
-    success_url = '/profile/'
+    success_url = '/library/'
     fields = [
         'title',
         'picture',
@@ -66,6 +72,25 @@ class PhotoCreate(CreateView):
         return form
 
 
+class PhotoUpdate(UpdateView):
+    model = ImagerPhoto
+    context_object_name = 'photo'
+    success_url = '/library/'
+    fields = [
+        'title',
+        'picture',
+        'description',
+        'albums',
+        'published'
+    ]
+
+    def get_form(self, form_class):
+        form = super(PhotoUpdate, self).get_form(form_class)
+        qs = form.fields['albums'].queryset
+        form.fields['albums'].queryset = qs.filter(user=self.request.user)
+        return form
+
+
 class PhotoDelete(DeleteView):
     model = ImagerPhoto
-    success_url = '/profile/'
+    success_url = '/library/'

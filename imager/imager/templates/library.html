@@ -10,9 +10,9 @@
     <h3>Albums</h3>
     {% for album in albums %}
         {% thumbnail album.cover.picture "200x200" crop="center" as im %}
-            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'>
+            <a href="{% url 'album_update' album.id %}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'></a>
         {% empty %}
-            <img src="{% static '/media/images/git.jpg' %}" height="200" width="200" class="library_gallery" />
+            <a href="{% url 'album_update' album.id %}"><img src="{% static '/media/images/git.jpg' %}" height="200" width="200" class="library_gallery" /></a>
         {% endthumbnail %}
     {% endfor %}
 </div>
@@ -26,7 +26,7 @@
 <h3>Photos</h3>
 {% for photo in photos %}
     {% thumbnail photo.picture "200x200" crop="center" as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'>
+        <a href="{% url 'update' photo.id %}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'></a>
     {% endthumbnail %}
 {% endfor %}
 </div>
