@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load thumbnail %}
+
 {% block content %}
 
-
 <h1>Welcome to Your Library!</h1>
-<hr>
 <div id='album_gallery'>
     <h3>Albums</h3>
     {% for album in albums %}
@@ -21,16 +20,13 @@
     </div>
 {% endif %}
 <div id='photo_gallery'>
-<hr>
-<br />
-<h3>Photos</h3>
-{% for photo in photos %}
-    {% thumbnail photo.picture "200x200" crop="center" as im %}
-        <a href="{% url 'update' photo.id %}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'></a>
-    {% endthumbnail %}
+    </br>
+    <h3>Photos</h3>
+    {% for photo in photos %}
+        {% thumbnail photo.picture "200x200" crop="center" as im %}
+            <a href="{% url 'update' photo.id %}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='library_gallery'></a>
+        {% endthumbnail %}
 {% endfor %}
 </div>
-
-
 
 {% endblock %}
