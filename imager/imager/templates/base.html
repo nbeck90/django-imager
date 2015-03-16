@@ -10,7 +10,7 @@
             <div id='navigation_bar'>
                 <a href="{% url 'home' %}" class='nav_icon'>Home</a>
                 {% if user.is_authenticated %}
-                <a href="{% url 'my_profile' %}" class='nav_icon'>My Profile</a>
+                <a href="{% url 'my_profile' %}" class='nav_icon'>Profile</a>
                 <a href="{% url 'upload' %}" class='nav_icon'>Upload Photo</a>
                 <a href="{% url 'album_create' %}" class='nav_icon'>Create Album</a>
                 <a href="{% url 'logout' %}" class='nav_icon'>Logout</a>
