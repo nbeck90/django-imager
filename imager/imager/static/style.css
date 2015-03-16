@@ -8,7 +8,7 @@ html {
     background-attachment: fixed;
 }
 
-head {
+body {
     margin: 0;
 }
 
@@ -113,6 +113,8 @@ form {
     color: #fff;
     text-shadow: 4px 4px 10px #222;
     font-size: 1em;
+    margin-left: 20px;
+    padding-bottom: 170px;
 }
 
 .login {
@@ -157,7 +159,8 @@ footer {
     color: #fff;
     text-align: center;
     font-size: 0.8em;
-    margin: 40px auto 20px;
+    margin: 50px auto 20px;
+    clear: both;
 }
 
 #profile_content {
@@ -224,4 +227,8 @@ footer {
 
 #profile_edit_table {
     margin-left: 20%;
+}
+
+th {
+    text-align: right;
 }
