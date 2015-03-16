@@ -4,8 +4,10 @@
 <h2>
 <a href="{% url 'images:album_add' object.pk %}">Delete</a>
 </h2>
-<form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
+<form action="" method="POST">{% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
     <input type="submit" value="Create" />
 </form>
 {% endblock %}
