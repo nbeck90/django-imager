@@ -60,3 +60,22 @@ def user_profile(request, id):
         'following': following,
         'num_photo': num_photos
     })
+
+
+@login_required()
+def library(request):
+    user = request.user
+    try:
+        albums = ImagerAlbum.objects.filter(user=user).all()
+    except:
+        albums = None
+    try:
+        photos = ImagerPhoto.objects.filter(user=user).all()
+    except:
+        photos = None
+    return render(request, 'library.html', {
+        'user': user,
+        'albums': albums,
+        'photos': photos
+    })
+

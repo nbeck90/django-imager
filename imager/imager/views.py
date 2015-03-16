@@ -14,23 +14,6 @@ def home(request):
     })
 
 
-def library(request, id):
-    user = User.objects.get(pk=id)
-    try:
-        albums = ImagerAlbum.objects.filter(user=user).all()
-    except:
-        albums = None
-    try:
-        photos = ImagerPhoto.objects.filter(user=user).all()
-    except:
-        photos = None
-    return render(request, 'library.html', {
-        'user': user,
-        'albums': albums,
-        'photos': photos
-    })
-
-
 def stream(request, id):
     user = User.objects.get(pk=id)
     try:
