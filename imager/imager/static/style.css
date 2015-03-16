@@ -87,8 +87,7 @@ h3 {
 .profile_pic {
     height: 250px;
     width: 180px;
-    margin-left: 25px;
-    margin-right: px;
+    margin-left: 30px;
     border-radius: 10px;
     box-shadow: 4px 4px 10px #222;
     float: left;
@@ -170,17 +169,25 @@ input {
 }
 
 #stream_link {
-    margin-left: 55px;
+    margin-left: 30px;
     margin-top: -100px;
 }
 
 #profile_albums {
+    text-align: center;
     padding-top: 90px;
-    padding-left: 55px;
+}
+
+#profile_albums_title {
+    text-align: center;
+}
+
+#welcome_name {
+    font-family: 'Pacifico', sans-serif;
 }
 
 #library_link {
-    margin-left: 10px;
+    margin-left: 30px;
 }
 
 #profile_edit_table {
