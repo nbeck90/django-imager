@@ -15,10 +15,6 @@
             {% else %}
                 <img class='profile_pic' src="{% static 'default-user-image.png' %}" /></br>
             {% endif %}
-            <form action="" method="post">{% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Create" />
-            </form>
         </div>
         <div class="information">
             Date Joined: {{ profile.user.date_joined|date:"M. d, Y" }}</br>
