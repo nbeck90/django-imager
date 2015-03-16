@@ -89,12 +89,31 @@ img {
     border-radius: 10px;
 }
 
-#login {
+form {
+    text-align: left;
+    font-family: 'Pacifico', sans-serif;
+    color: #fff;
+    text-shadow: 4px 4px 10px #222;
+    font-size: 1em;
+}
+
+.login {
     text-align: center;
     font-family: 'Pacifico', sans-serif;
     color: #fff;
     text-shadow: 4px 4px 10px #222;
     font-size: 1.5em;
+}
+
+label{
+    font-family: 'Fredoka One', sans-serif;
+    color: #fff;
+    text-shadow: 4px 4px 10px #222;
+    font-size: 1.5em;
+}
+
+span {
+    visibility: hidden;
 }
 
 .required {
@@ -104,7 +123,7 @@ img {
     font-size: 1.5em;
 }
 
-input {
+select, textarea, input {
     font-family: sans-serif;
     color: #111;
     margin: 0 auto;
