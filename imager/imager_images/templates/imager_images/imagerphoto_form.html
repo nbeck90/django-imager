@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="#" onclick="history.back();"><h5>&lsaquo;&lsaquo; Back</h5></a>
+<a href="javascript:history.go(-1)"><h5>&lsaquo;&lsaquo; Back</h5></a>
 <h3>Upload a new photo!</h3>
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <table>
         {{ form.as_table }}
     </table>
-    <input type="submit">
+    <input type="submit" id="">
 </form>
 {% endblock %}
