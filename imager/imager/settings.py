@@ -1,110 +1,100 @@
-"""
-Django settings for imager project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
-"""
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from configurations import Settings
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-USER_NAME = os.environ.get('USER')
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
+class Base(Settings):
+    BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+    USER_NAME = os.environ.get('USER')
+    DEBUG = True
+    TEMPLATE_DEBUG = DEBUG
+    ALLOWED_HOSTS = ['127.0.0.1', ]
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7^k#gdc6!zk=0o^x5^gj5(z!$!6ki2tii-=64s*2_l)c0&2wv2'
+    INSTALLED_APPS = (
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'imagerprofile',
+        'imager_images',
+        'registration',
+        'sorl.thumbnail',
+    )
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+    MIDDLEWARE_CLASSES = (
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    )
 
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
-# Application definition
-
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'imagerprofile',
-    'imager_images',
-    'registration',
-    'debug_toolbar',
-    'sorl.thumbnail',
-)
-
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
-
-ROOT_URLCONF = 'imager.urls'
-
-WSGI_APPLICATION = 'imager.wsgi.application'
+    ROOT_URLCONF = 'imager.urls'
+    WSGI_APPLICATION = 'imager.wsgi.application'
+    LANGUAGE_CODE = 'en-us'
+    TIME_ZONE = 'America/Los_Angeles'
+    USE_I18N = True
+    USE_L10N = True
+    USE_TZ = True
 
 
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+    # Static files (CSS, JavaScript, Images)
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'imager/static')
+    ]
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_imager',
-        'USER': USER_NAME,
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+    TEMPLATE_DIRS = [
+        os.path.join(BASE_DIR, 'imager/templates'),
+        os.path.join(BASE_DIR, 'imager_images/templates'),
+        os.path.join(BASE_DIR, 'imagerprofile/templates')
+    ]
+
+    # Registration and Email settings
+    ACCOUNT_ACTIVATION_DAYS = 7
+    REGISTRATION_AUTO_LOGIN = True
+    LOGIN_REDIRECT_URL = '/profile'
+    LOGOUT_REDIRECT_URL = 'home'
+
+
+class Dev(Base):
+
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'secret')
+    USER_NAME = os.environ.get('USER')
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'django_imager',
+            'USER': USER_NAME,
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
     }
-}
 
-# Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'America/Los_Angeles'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
+    DEBUG = True
+    TEMPLATE_DEBUG = True
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'imager/static')
-]
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+class Prod(Base):
+    import dj_database_url
 
-TEMPLATE_DIRS = [
-    os.path.join(BASE_DIR, 'imager/templates'),
-    os.path.join(BASE_DIR, 'imager_images/templates'),
-    os.path.join(BASE_DIR, 'imagerprofile/templates')
-]
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'secret')
+    DATABASES = {'default': {dj_database_url.config()}}
 
-# Registration and Email settings
-ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_AUTO_LOGIN = True
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-LOGIN_REDIRECT_URL = '/profile'
-LOGOUT_REDIRECT_URL = 'home'
+    DEBUG = False
+    TEMPLATE_DEBUG = False
+    EMAIL_BACKEND = 'django_ses.SESBackend'
+
+    AWS_SES_ACCESS_KEY_ID = os.environ.get('AWS_SES_ACCESS_KEY_ID')
+    AWS_SES_SECRET_ACCESS_KEY = os.environ.get('AWS_SES_SECRET_ACCESS_KEY')
+
+    # Additionally, you can specify an optional region, like so:
+    AWS_SES_REGION_NAME = 'us-west-2'
+    AWS_SES_REGION_ENDPOINT = 'email.us-west-2.amazonaws.com'
