@@ -40,7 +40,6 @@ class Base(Settings):
     USE_L10N = True
     USE_TZ = True
 
-
     # Static files (CSS, JavaScript, Images)
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -106,8 +105,3 @@ class Prod(Base):
     # AWS_SES_REGION_ENDPOINT = 'email.us-west-2.amazonaws.com'
     # AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     # AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-
-
-
-
-
