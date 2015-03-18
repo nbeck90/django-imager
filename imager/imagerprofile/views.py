@@ -3,11 +3,30 @@ from django.contrib.auth.decorators import login_required
 from imager_images.models import ImagerPhoto, ImagerAlbum, User
 from django.views.generic import UpdateView
 from imagerprofile.models import ImagerProfile
+from imagerprofile.forms import UserProfileForm
+
+
+# class UserUpdateView(UpdateView):
+#     model = User
+#     template_name_suffix = '_update_form'
+#     # context_object_name = 'profile'
+#     success_url = '/profile/'
+#     fields = [
+#         'first_name',
+#         'last_name',
+#         'email',
+#     ]
+
+#     def get_queryset(self):
+#         qs = super(UserUpdateView, self).get_queryset()
+#         return qs.filter(user=self.request.user)
 
 
 class ImagerProfileUpdateView(UpdateView):
     model = ImagerProfile
     template_name_suffix = '_update_form'
+    # form_class = UserProfileForm
+    # template_name = 'imagerprofile_update_form.html'
     context_object_name = 'profile'
     success_url = '/profile/'
     fields = [
@@ -26,6 +45,13 @@ class ImagerProfileUpdateView(UpdateView):
     def get_queryset(self):
         qs = super(ImagerProfileUpdateView, self).get_queryset()
         return qs.filter(user=self.request.user)
+
+    # def get_initial(self):
+    #     initial = super(ImagerProfileUpdateView, self).get_initial()
+    #     initial['first_name'] = self.instance.user.first_name
+    #     initial['last_name'] = self.instance.user.last_name
+    #     initial['email'] = self.instance.user.email
+    #     return initial
 
 
 @login_required()
