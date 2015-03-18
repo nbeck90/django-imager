@@ -8,3 +8,4 @@ class ImagerProfileConfig(AppConfig):
 
     def ready(self):
         from handlers import add_profile
+

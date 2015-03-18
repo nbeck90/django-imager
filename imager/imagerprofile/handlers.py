@@ -10,3 +10,4 @@ def add_profile(sender, **kwargs):
         obj = kwargs.get('instance')
         new_profile = ImagerProfile(user=obj)
         new_profile.save()
+
