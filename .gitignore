@@ -5,6 +5,11 @@ imager/media/*
 # C extensions
 *.so
 
+
+simple_nginx_config
+*.conf
+
+
 .DS_Store
 # Distribution / packaging
 .Python
