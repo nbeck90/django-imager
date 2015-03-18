@@ -8,6 +8,7 @@ from imagerprofile.models import ImagerProfile
 class ImagerProfileUpdateView(UpdateView):
     model = ImagerProfile
     template_name_suffix = '_update_form'
+    context_object_name = 'profile'
     success_url = '/profile/'
     fields = [
         'profile_picture',
