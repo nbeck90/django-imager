@@ -7,7 +7,7 @@ class Base(Settings):
     USER_NAME = os.environ.get('USER')
     DEBUG = True
     TEMPLATE_DEBUG = DEBUG
-    ALLOWED_HOSTS = ['127.0.0.1', ]
+    ALLOWED_HOSTS = ['*']
 
     INSTALLED_APPS = (
         'django.contrib.admin',
@@ -86,15 +86,28 @@ class Prod(Base):
     import dj_database_url
 
     SECRET_KEY = os.environ.get('SECRET_KEY', 'secret')
-    DATABASES = {'default': {dj_database_url.config()}}
+    DATABASES = {'default': dj_database_url.config()}
 
-    DEBUG = False
-    TEMPLATE_DEBUG = False
+    DEBUG = True
+    TEMPLATE_DEBUG = True
+
+    ### Config for sending emails via Gmail SMTP
+    # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    # EMAIL_HOST = 'smtp.gmail.com'
+    # DEFAULT_FROM_EMAIL = 'djangoimager@gmail.com'
+    # EMAIL_PORT = 587
+    # EMAIL_USE_TLS = True
+    # EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+    # Config for sending email via AWS SES
     EMAIL_BACKEND = 'django_ses.SESBackend'
-
-    AWS_SES_ACCESS_KEY_ID = os.environ.get('AWS_SES_ACCESS_KEY_ID')
-    AWS_SES_SECRET_ACCESS_KEY = os.environ.get('AWS_SES_SECRET_ACCESS_KEY')
-
-    # Additionally, you can specify an optional region, like so:
     AWS_SES_REGION_NAME = 'us-west-2'
     AWS_SES_REGION_ENDPOINT = 'email.us-west-2.amazonaws.com'
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
+
+
+
+
