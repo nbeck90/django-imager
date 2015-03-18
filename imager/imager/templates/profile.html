@@ -1,40 +1,41 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load thumbnail %}
-{% block content %}
 
+
+{% block content %}
 <div id='profile_content'>
-    <h1>Welcome, {% if user.first_name %}{{user.first_name}}{% else %}{{user}}{% endif %}!</h1>
-    <h2 id='library_link'><a href="{% url 'library' user.id %}">{% if user.first_name %}{{user.first_name}}{% else %}{{user}}{% endif %}'s Library</a></h2>
+    <h1 id='welcome_name'>Welcome, {% if user.first_name %}{{ user.first_name }}{% else %}{{ user }}{% endif %}!</h1>
+    <h2 id='library_link'><a href="{% url 'library' %}">{% if user.first_name %}{{ user.first_name }}{% else %}{{ user }}{% endif %}'s Library</a></h2>
 
     <div id='profile_built'>
         <div id='profile_picture_area'>
             {% if profile.profile_picture %}
-            <img class='profile_pic' src="{% static profile.profile_picture.url %}" /></br>
+                <img class='profile_pic' src="{% static profile.profile_picture.url %}" /></br>
             {% else %}
-            <img class='profile_pic' src="{% static '/media/images/git.jpg' %}" /></br>
+                <img class='profile_pic' src="{% static 'default-user-image.png' %}" /></br>
             {% endif %}
         </div>
         <div class="information">
-            Date Joined: {{profile.user.date_joined|date:"M. d, Y"}}</br>
-            Birthday: {{profile.birthday}}</br>
-            Phone: {{profile.phone_number}}</br>
-            Followers: {{following}}</br>
-            Albums: {{num_album}}</br>
-            Photos: {{num_photo}}
+            Date Joined: {{ profile.user.date_joined|date:"M. d, Y" }}</br>
+            Birthday: {{ profile.birthday }}</br>
+            Phone: {{ profile.phone_number }}</br>
+            Followers: {{ following }}</br>
+            Albums: {{ albums|length }}</br>
+            Photos: {{ num_photo }}</br>
+            <small><a href="{% url 'profile_edit' user.id %}">Update my profile</a></small>
         </div>
     </div>
 </div>
-<h2 id='stream_link'><a href="{% url 'stream' user.id %}">Stream</a><h2>
+<h2 id='stream_link'><a href="{% url 'stream' %}">Stream</a></h2>
 <div id='profile_albums'>
+    <h2 id='profile_albums_title'>My Albums</h2>
     {% for album in albums %}
-    {% thumbnail album.cover.picture "100x100" crop="center" as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-    {% empty %}
-        <img src="{% static '/media/images/git.jpg' %}" height="100" width="100"/>
-    {% endthumbnail %}
+        {% thumbnail album.cover.picture "100x100" crop="center" as im %}
+            <a href="{% url 'album_update' album.id %}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"></a>
+        {% empty %}
+            <a href="{% url 'album_update' album.id %}"><img src="{% static '/media/images/git.jpg' %}" height="100" width="100"/></a>
+        {% endthumbnail %}
     {% endfor %}
 </div>
-
-
 {% endblock %}

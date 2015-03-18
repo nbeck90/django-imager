@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load thumbnail %}
+
+
 {% block content %}
 <h1>Welcome!</h1>
 
 <div id='splash_photo'>
     {% if random_photo %}
-    {% thumbnail random_photo.picture "300x300" crop="center" as im %}
+    {% thumbnail random_photo.picture "900x450" as im %}
         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
     {% endthumbnail %}
     {% else %}
     <img src="{% static '/media/images/git.jpg' %}">
     {% endif %}
 </div>
-
 {% endblock %}
