@@ -3,7 +3,11 @@ from django.core import mail
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from imagerprofile.models import ImagerProfile
+from selenium import selenium
 import factory
+
+import factory
+import unittest
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -78,3 +82,30 @@ class LoginTestCase(TestCase):
         # import pdb; pdb.set_trace()
         self.assertEqual(response.status_code, 200)
         assert 'Welcome, fred' in response.context['body']
+
+
+class TestLogin(unittest.TestCase):
+    def setUp(self):
+        self.user1 = UserFactory.create(
+            username='alice',
+            first_name='Alice',
+            last_name='Restaurant')
+        self.user1.set_password('secret')
+        self.user1.save()
+        self.user2 = UserFactory(username='Bob')
+        self.selenium = webdriver.Firefox()
+        super(TestLogin, self).setUp
+
+    def tearDown(self):
+        self.selenium.quit()
+        super(TestLogin, self).tearDown()
+
+    def login_user(self, user=None):
+        if user is None:
+            user = self.user1
+        self.selenium.get(
+            '{}{}'.format(self.live_server_url, reverse('auth_login'))
+        )
+        self.selenium.find_element_by_id('id_username').send_keys('alice')
+        self.selenium.find_element_by_id('id_password').send_keys('secret')
+        self.selenium.find_element_by_tag_name('form').submit()
