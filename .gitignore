@@ -7,7 +7,7 @@ imager/media/*
 
 
 simple_nginx_config
-
+*.conf
 
 
 .DS_Store
