@@ -2,12 +2,23 @@
 
 {% block content %}
 <a href="javascript:history.go(-1)"><h5>&lsaquo;&lsaquo; Back</h5></a>
-<h3>Create a new album!</h3>
+{% if album %}
+    <h3>Edit my album!</h3>
+{% else %}
+    <h3>Create a new album!</h3>
+{% endif %}
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <table>
         {{ form.as_table }}
     </table>
-    <input type="submit">
+    <input type="submit" value="Submit">
 </form>
+{% if album %}
+    <form action="{% url 'album_delete' album.id %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" name="album_delete" value="Delete Album"/>
+    </form>
+{% endif %}
+
 {% endblock %}
