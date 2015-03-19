@@ -6,52 +6,39 @@ from imagerprofile.models import ImagerProfile
 from imagerprofile.forms import UserProfileForm
 
 
-# class UserUpdateView(UpdateView):
-#     model = User
-#     template_name_suffix = '_update_form'
-#     # context_object_name = 'profile'
-#     success_url = '/profile/'
-#     fields = [
-#         'first_name',
-#         'last_name',
-#         'email',
-#     ]
-
-#     def get_queryset(self):
-#         qs = super(UserUpdateView, self).get_queryset()
-#         return qs.filter(user=self.request.user)
-
-
 class ImagerProfileUpdateView(UpdateView):
     model = ImagerProfile
     template_name_suffix = '_update_form'
-    # form_class = UserProfileForm
-    # template_name = 'imagerprofile_update_form.html'
+    form_class = UserProfileForm
     context_object_name = 'profile'
     success_url = '/profile/'
-    fields = [
-        'profile_picture',
-        'phone_number',
-        'birthday',
-        'phone_privacy',
-        'birthday_privacy',
-        'picture_privacy',
-        'name_privacy',
-        'email_privacy',
-        'following',
-        'blocking',
-    ]
+    # fields = [
+    #     'profile_picture',
+    #     'phone_number',
+    #     'birthday',
+    #     'phone_privacy',
+    #     'birthday_privacy',
+    #     'picture_privacy',
+    #     'name_privacy',
+    #     'email_privacy',
+    #     'following',
+    #     'blocking',
+    # ]
 
     def get_queryset(self):
         qs = super(ImagerProfileUpdateView, self).get_queryset()
         return qs.filter(user=self.request.user)
 
-    # def get_initial(self):
-    #     initial = super(ImagerProfileUpdateView, self).get_initial()
-    #     initial['first_name'] = self.instance.user.first_name
-    #     initial['last_name'] = self.instance.user.last_name
-    #     initial['email'] = self.instance.user.email
-    #     return initial
+    def get_initial(self):
+        initial = super(ImagerProfileUpdateView, self).get_initial()
+        initial['first_name'] = self.request.user.first_name
+        initial['last_name'] = self.request.user.last_name
+        initial['email'] = self.request.user.email
+        return initial
+
+    # def get_form_kwargs(self):
+    #     import pdb; pdb.set_trace()
+    #     return super(ImagerProfileUpdateView, self).get_form_kwargs()
 
 
 @login_required()
