@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from imager_images.models import ImagerPhoto, ImagerAlbum, User
 from django.views.generic import UpdateView
 from imagerprofile.models import ImagerProfile
-from imagerprofile.forms import UserProfileForm
+# from imagerprofile.forms import UserProfileForm
 
 
 # class UserUpdateView(UpdateView):
