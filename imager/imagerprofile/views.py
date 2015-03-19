@@ -36,6 +36,15 @@ class ImagerProfileUpdateView(UpdateView):
         initial['email'] = self.request.user.email
         return initial
 
+    def form_valid(self, form):
+        # import pdb; pdb.set_trace()
+        user = form.instance.user
+        user.first_name = form.cleaned_data.get('first_name')
+        user.last_name = form.cleaned_data.get('last_name')
+        user.email = form.cleaned_data.get('email')
+        user.save()
+        return super(ImagerProfileUpdateView, self).form_valid(form)
+
     # def get_form_kwargs(self):
     #     import pdb; pdb.set_trace()
     #     return super(ImagerProfileUpdateView, self).get_form_kwargs()
