@@ -3,6 +3,7 @@ from django.core import mail
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from imagerprofile.models import ImagerProfile
+from imager_images.tests import ImageFactory, AlbumFactory
 import factory
 from selenium import webdriver
 
@@ -114,14 +115,14 @@ class TestProfileView(LiveServerTestCase):
         user = self.user1
         self.login_user(user)
         assert user.is_authenticated()
-        self.selenium.save_screenshot('login.png')
+        # self.selenium.save_screenshot('login.png')
         assert self.selenium.find_element_by_id("stream_link")
         assert self.selenium.find_element_by_partial_link_text("Update my profile")
 
     def test_profile(self):
         user = self.user1
         self.login_user(user)
-        self.selenium.save_screenshot('profile.png')
+        # self.selenium.save_screenshot('profile.png')
         assert self.selenium.find_element_by_id("stream_link")
         assert self.selenium.find_element_by_id("welcome_name")
         assert self.selenium.find_element_by_class_name("profile_pic")
@@ -130,7 +131,7 @@ class TestProfileView(LiveServerTestCase):
         user = self.user1
         self.login_user(user)
         self.selenium.find_element_by_partial_link_text("Stream").click()
-        self.selenium.save_screenshot('stream.png')
+        # self.selenium.save_screenshot('stream.png')
         assert self.selenium.find_element_by_id("album_gallery")
         assert self.selenium.find_element_by_id("photo_gallery")
 
@@ -138,7 +139,26 @@ class TestProfileView(LiveServerTestCase):
         user = self.user1
         self.login_user(user)
         self.selenium.find_element_by_partial_link_text("Library").click()
-        self.selenium.save_screenshot('library.png')
+        # self.selenium.save_screenshot('library.png')
         assert self.selenium.find_element_by_id("album_gallery")
         assert self.selenium.find_element_by_id("photo_gallery")
 
+    def test_upload_photo(self):
+        user = self.user1
+        self.login_user(user)
+        self.selenium.find_element_by_partial_link_text("Upload Photo").click()
+        self.selenium.find_element_by_id('id_picture').send_keys('/Users/jwarren/Desktop/jwarren.jpg')
+        # self.selenium.save_screenshot('upload.png')
+        self.selenium.find_element_by_id('submit').click()
+        assert self.selenium.find_element_by_tag_name('img')
+
+
+    def test_create_album(self):
+        user = self.user1
+        self.login_user(user)
+        self.selenium.find_element_by_partial_link_text("Create Album").click()
+        self.selenium.find_element_by_id('id_title').send_keys('My test album')
+        self.selenium.find_element_by_id('id_description').send_keys('This is an album test')
+        # self.selenium.save_screenshot('create.png')
+        self.selenium.find_element_by_id('submit').click()
+        assert self.selenium.find_element_by_tag_name('img')
