@@ -12,7 +12,7 @@
     <table>
         {{ form.as_table }}
     </table>
-    <input type="submit" value="Submit">
+    <input type="submit" id="submit" value="Submit">
 </form>
 {% if album %}
     <form action="{% url 'album_delete' album.id %}" method="POST">
