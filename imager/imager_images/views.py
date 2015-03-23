@@ -46,7 +46,7 @@ class AlbumUpdate(UpdateView):
 
 class AlbumDelete(DeleteView):
     model = ImagerAlbum
-    success_url = 'library'
+    success_url = '/profile/library'
 
 
 class PhotoCreate(CreateView):
