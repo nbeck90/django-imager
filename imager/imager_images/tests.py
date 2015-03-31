@@ -3,7 +3,6 @@ from imager_images.models import ImagerPhoto, ImagerAlbum
 from imagerprofile.models import ImagerProfile
 from imagerprofile.tests import UserFactory, ProfileFactory
 from django.contrib.auth.models import User
-import factory
 
 
 class ImageFactory(factory.django.DjangoModelFactory):

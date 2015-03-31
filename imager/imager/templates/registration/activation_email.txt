@@ -2,4 +2,4 @@ Thank you for registering, {{ user }}!
 
 Please follow http://{{ site }}{% url 'registration_activate' activation_key %} to finish registration.
 
-This email will expire in {{ expiration_days }} (days).
+This email will expire in {{ expiration_days }} days.
